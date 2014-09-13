@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Do-it-yourself mobile optimization: A proposition &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Do-it-yourself mobile optimization: A proposition</h1>
+                        <time class="li-article-date">Thursday 24 June 2010</time>
+                    </header>
+                    <section>
+                        <p>There are a lot of websites I visit on my phone that haven&rsquo;t been optimized for smartphones.</p>
+
+<p><a href="https://scnay-images.s3.amazonaws.com/globalconstant/byu_palm_pre.png"><img alt="" src="https://scnay-images.s3.amazonaws.com/globalconstant/byu_palm_pre.png" title="BYU.edu (unoptimized) on a Palm Pre at 320x480" width="150" /></a></p>
+
+<p>First of all, those websites bug me. Pinching and zooming and panning around just to find the tiny link I&rsquo;m searching for gets old really fast.</p>
+
+<p>So I have a proposition. I want a mobile app that will let me apply my own stylesheets to those websites. That way even though those webmasters refuse to optimize their site for me, I can still get an acceptable (read: usable) experience on their website from my phone.</p>
+
+<p>Take <a href="http://www.byu.edu/webapp/home/index.jsp">BYU&rsquo;s website</a> for example. It was designed for a screen at least 985 pixels wide. That&rsquo;s great on a computer, but it&rsquo;s awful on a mobile screen that&rsquo;s only 320 pixels wide.</p>
+
+<p>Luckily, BYU&rsquo;s web designers were smart enough to do almost all of the layout using CSS. This means that I can create a stylesheet of my own that will display only the stuff I want to see. For example, it could only show the Students and Route Y menus and hide the news feed and all the other links that I don&rsquo;t care about.</p>
+
+<p>The <a href="https://addons.mozilla.org/en-US/firefox/addon/60/">Web Developer add-on</a> in Firefox will let me apply my own stylesheets to any website so I can make it look just how I want. Indeed, this sort of user modification of website styling was <a href="http://en.wikipedia.org/wiki/Cascading_Style_Sheets#Sources">one of the core intentions of CSS</a> in the first place. Users need not be at the mercy of webpage authors as far as presentation of content is concerned.</p>
+
+<p><a href="https://scnay-images.s3.amazonaws.com/globalconstant/byu_user_stylesheet.png"><img alt="" src="https://scnay-images.s3.amazonaws.com/globalconstant/byu_user_stylesheet.png" title="BYU.edu with custom user stylesheet (320x480)" width="150" /></a></p>
+
+<p>Here you can see the results when I disabled all linked stylesheets and instead used <a href="https://snay2-posts.s3.amazonaws.com/byu.css">my own user stylesheet</a>. At 320 pixels, you still can&rsquo;t see everything, but it&rsquo;s a start.</p>
+
+<p>It would be cool if this app were a <a href="http://www.kynetx.com/">Kynetx</a> endpoint. That would allow me to write rule-based modifications of websites in the cloud, without having to store anything locally on my phone. It would be even cooler if that app would just modify content right my default browser.</p>
+
+<p>But even if that doesn&rsquo;t work out, it would be possible to create a mobile app that displays the web pages in an embedded browser and then applies my favorite stylesheets to them as they&rsquo;re being loaded.</p>
+
+<p>It would be <em>really</em> cool if all browsers (including mobile browsers) would just support this natively. <a href="http://www.opera.com/docs/usercss/">Opera does</a>. Why does no one else?</p>
+
+<p>Maybe I&rsquo;ll just go write this mobile app myself.</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2010/07/09/im-glad-i-stayed-with-webos"> On second thoughts...I&#39;m glad I stayed with webOS</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2010/06/17/getting-gabble-to-yam"> Getting Gabble to &#34;Yam!&#34;</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

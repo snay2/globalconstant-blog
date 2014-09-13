@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Setting up a passwordless login over SSH &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Setting up a passwordless login over SSH</h1>
+                        <time class="li-article-date">Tuesday 10 November 2009</time>
+                    </header>
+                    <section>
+                        <p>Here&rsquo;s how you can set up a public key to allow you to login to a remote server over SSH without a password. (I draw mainly on the <a href="http://linuxproblem.org/art_9.html">instructions here</a>.)</p>
+
+<p>First, open a terminal on your machine. We&rsquo;ll call it mybox. We&rsquo;re going to create a <strong>public key</strong>.</p>
+
+<blockquote>[me@mybox ~]$ ssh-keygen -t rsa</blockquote>
+
+<p>This will ask you first where you want to save the public key you&rsquo;re creating. (The default location ~/.ssh/id_rsa is fine.) It will then ask you for a passphrase. You can just press enter twice at those prompts to skip the passphrase (I always have).</p>
+
+<p>Now make sure there is a .ssh directory in the home folder on the server where you want to log in (we&rsquo;ll call it myserver):</p>
+
+<blockquote>[me@mybox ~]$ ssh me@myserver mkdir -p .ssh</blockquote>
+
+<p>Next we&rsquo;ll append the public key from mybox to the authorized_keys list on myserver:</p>
+
+<blockquote>[me@mybox ~]$ cat .ssh/id_rsa.pub | ssh me@myserver 'cat &gt;&gt; .ssh/authorized_keys'
+<strong>(Note that those are single quotes, not backquotes.)</strong></blockquote>
+
+<p>That&rsquo;s it. You can test it with any command that uses an ssh tunnel (ssh or even svn or git, for example). Also note that you can use this same public key to set up passwordless login on any machine you like.</p>
+
+<p>Now another handy thing is adding <strong>preconfigured setups</strong> to your ssh config file. It&rsquo;s located in ~/.ssh/config. Here&rsquo;s an example setup:</p>
+
+<blockquote>host server
+&nbsp;&nbsp;&nbsp;&nbsp;Hostname myserver
+&nbsp;&nbsp;&nbsp;&nbsp;User me</blockquote>
+
+<p>(See <a href="http://www.tectia.com/manuals/server-win-admin/44/Configuration_File_Reference.html">this reference</a> for explanation on all the possible parameters you can use.)</p>
+
+<p>Now you can type ssh server on the command line and get logged right in&ndash;no need to specify your username or enter a password.</p>
+
+<p>Now mind you, this could potentially be a dangerous setup. Only use this on a <strong>well-secured computer</strong> where you are the only person with access to your terminal. Any hacker that gets in to your machine can now log in as you to myserver without having to know your username or password. Convenience comes at a price.</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2009/12/08/foreign-keys-in-mysql-innodb-and-myisam"> Foreign keys in MySQL: InnoDB and MyISAM</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2009/11/06/sending-email-through-gmail-using-php"> Sending email through Gmail using PHP</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

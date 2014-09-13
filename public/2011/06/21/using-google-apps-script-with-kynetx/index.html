@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Using Google Apps Script with Kynetx &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Using Google Apps Script with Kynetx</h1>
+                        <time class="li-article-date">Tuesday 21 June 2011</time>
+                    </header>
+                    <section>
+                        <p>I posted a few weeks ago about <a href="/2011/06/02/simple-stats-for-kynetx-apps/">aggregating stats for TomatoFlix</a> or any other Kynetx app. I set up an <a href="http://ktest.heroku.com/a163x53">endpoint</a> on ktest.heroku.com to let me see those stats.</p>
+
+<p>But that only gives me aggregate data. What if I want to observe trends over time? For example, is the popularity of the Redbox website changing? What is the most frequently used movie website during the weekend? On week nights?</p>
+
+<p>In order to get that kind of information, I need a way to retrieve and store my stats regularly. It turns out that Google Apps Script can do just that. In this post, I&rsquo;ll show you how to combine a time-based trigger that runs an Apps Script function. Then I&rsquo;ll show you how to make a RESTful endpoint to expose the stats from your app. Finally, I&rsquo;ll mention how to combine the two to get the data we want.</p>
+
+<p><strong>Starting with Apps Script</strong>
+First, go create a new spreadsheet in <a href="http://docs.google.com/">Google Docs</a>. Then, create a new script (click on Tools -&gt; Script Editor -&gt; Create a new script). That takes you to the Script Editor. Name the function whatever you want and have it do something simple. Here&rsquo;s an example that increments cell A1&rsquo;s value every time is is called:</p>
+
+<script src="https://gist.github.com/1039165.js?file=incrementA1.js"></script>
+
+<p>Now set up a trigger to run that function every minute. From within the Script Editor, go to Triggers -&gt; Current Script&rsquo;s Triggers. Then click on &ldquo;Click here to add one now.&rdquo; That will give you a screen like this:</p>
+
+<p><a href="https://s3.amazonaws.com/scnay-images/globalconstant/setting-up-a-trigger.png"><img alt="" src="https://s3.amazonaws.com/scnay-images/globalconstant/setting-up-a-trigger.png" title="Setting up the trigger" class="aligncenter" width="600" /></a></p>
+
+<p>Have it run your function every minute. Now leave the spreadsheet and come back in a few minutes to see that it worked.</p>
+
+<p><strong>Setting up a RESTful endpoint to expose data</strong>
+I wrote about <a href="/2011/04/09/creating-a-restful-web-service-with-krl/">using Kynetx to create RESTful web services</a> a couple months ago. We&rsquo;re going to use the same principles here, so go read that post if you haven&rsquo;t already.</p>
+
+<p>In the case of TomatoFlix, all the stats are tracked using app variables. Implementing this web service endpoint is then a simple matter of writing a rule that responds to a webhook event, creating a JSON object with the data, and returning it. For this example, I&rsquo;m using Sam Curren&rsquo;s webhook module to make things easier. That means I need to add one line to the meta block:</p>
+
+<p><code>use module a8x157 alias webhook</code></p>
+
+<p>Here&rsquo;s the rule that does all the hard work:</p>
+
+<script src="https://gist.github.com/1039193.js?file=webhook-rule.js"></script>
+
+<p>That produces a JSON document that lives at this URL: <a href="http://webhooks.kynetxapps.net/h/a163x53.dev/stats">http://webhooks.kynetxapps.net/h/a163x53.dev/stats</a>.</p>
+
+<p><strong>Tying it all together</strong>
+Now we&rsquo;ve got the pieces we need. Go back to the Google Docs spreadsheet you created. Add another sheet. Set up a header row that has one column for the date/time and one column for each of your data points. For TomatoFlix, it looks like this:</p>
+
+<p><a href="https://s3.amazonaws.com/scnay-images/globalconstant/stats-header.png"><img alt="" src="https://s3.amazonaws.com/scnay-images/globalconstant/stats-header.png" title="Spreadsheet header row" class="aligncenter" width="600" /></a></p>
+
+<p>Now create a new script (or a new function in your existing script). This one is going to be more complicated than the previous one, but not by too much. Basically we&rsquo;re going to be appending rows instead of changing the same cell every time. Additionally, the data we put into those cells will come from a <code>UrlFetchApp.fetch()</code> call to the webhook URL of the rule we just wrote. Here&rsquo;s what it looks like for TomatoFlix:</p>
+
+<script src="https://gist.github.com/1039193.js?file=get-stats.js"></script>
+
+<p>The last piece is to set up a trigger to call that function. I&rsquo;m having mine run every day at 3 AM.</p>
+
+<p>That&rsquo;s it! Now your stats will be nicely aggregated into a spreadsheet, and you can crunch numbers to your heart&rsquo;s content.</p>
+
+<p><strong>Conclusion</strong>
+I&rsquo;ve never used Google Apps Script before today, but I&rsquo;m very impressed with the power it gives you. I&rsquo;m glad to see that they have <a href="http://code.google.com/googleapps/appsscript/guide_events.html">native event handlers and triggers</a>, which is what made this all possible.</p>
+
+<p>Triggers also make it easy to raise KNS events on a schedule, something that <a href="https://convore.com/kynetx/hourly-events-or-scheduled-events/">has been on the developer wish list</a> for a little while now.</p>
+
+<p>What cool ideas do you have for using Google Apps Script with Kynetx?</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/06/25/goodreads-across-the-web"> Goodreads Across the Web</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/06/21/using-web-events-to-do-dialoguing"> Using web events to do dialoguing</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

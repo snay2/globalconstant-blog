@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Image Project submission Kynetx app &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Image Project submission Kynetx app</h1>
+                        <time class="li-article-date">Monday 14 February 2011</time>
+                    </header>
+                    <section>
+                        <p>I wrote a simple Kynetx app today that annotates Flickr and TwitPic with links to submit the image to the CS 462 Image Project website. This is similar to what students will implement in <a href="http://classes.windley.com/462/wiki/index.php/Lab_5">Lab 5</a>. I&rsquo;m providing a reference implementation right now to make testing the app server in Labs 3 and 4 easier.</p>
+
+<p>The app finds the image and detail URLs for you (which, depending on the site, can be a rather complicated thing). It then takes you to the /submit endpoint on the demo web server so you can fill in the rest of the details and submit the image to the system.</p>
+
+<p>The Flickr version adds an &ldquo;Add to the Image Project&rdquo; button to the toolbar right above the image, in the same theme as the rest of the buttons.</p>
+
+<p>The TwitPic version adds an &ldquo;Add to the Image Project&rdquo; to the image toolbar that appears when you hover over the image.</p>
+
+<p>This browser extension includes both of those (and it will be updated later when I add a few more sites).</p>
+
+<p>Download the extensions here:
+<ul><li><a href="http://dl.dropbox.com/u/1882021/462/462_Image_Submitter.crx">Chrome</a></li>
+<li><a href="http://dl.dropbox.com/u/1882021/462/462_Image_Submitter.xpi">Firefox</a></li></ul></p>
+
+<p>If you&rsquo;d rather use a bookmarklet, drag this to your bookmarks bar:</p>
+
+<p><a href="javascript:(function(){var d=document;var s=d.createElement('script');s.text=&quot;KOBJ_config={'rids':['a163x44']};&quot;;d.body.appendChild(s);var l=d.createElement('script');l.src='http://init.kobj.net/js/shared/kobj-static.js';d.body.appendChild(l);})()">462 Image Submitter</a></p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/02/15/first-semester-as-a-ta-a-midterm-report"> First semester as a TA: A midterm report</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/02/10/coding-in-the-cloud-sourcekit"> Coding in the cloud: SourceKit</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

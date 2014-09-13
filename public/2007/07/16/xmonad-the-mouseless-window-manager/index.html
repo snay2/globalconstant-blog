@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>xmonad: the mouseless window manager &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">xmonad: the mouseless window manager</h1>
+                        <time class="li-article-date">Monday 16 July 2007</time>
+                    </header>
+                    <section>
+                        <p>The other day I discovered (through link surfing) a window manager called <a href="http://xmonad.org/">xmonad</a>. It is an extremely small (the compiled executable is 1.2M), lightning fast, sleek window manager for Linux designed to make the most of screen real estate and maximize your productivity using X. It can operate entirely without the mouse.</p>
+
+<p><a title="xmonad window manager" href="https://scnay-images.s3.amazonaws.com/globalconstant/xmonad_screenshot.png"><img src="https://scnay-images.s3.amazonaws.com/globalconstant/xmonad_small.png" alt="xmonad window manager" align="right" /></a>xmonad works by opening windows in tiles, which are rearranged as you open more windows. The primary window is on the left or top half of the screen (depending on which mode you&rsquo;re in) and the other windows stack in the other half of the screen. You can switch between windows using Mod+J and Mod+K (&ldquo;Mod&rdquo; is the Alt key on my machine), and you can swap windows to and from the primary position. Naturally, there are multitudinous ways to resize, move, and reorder the windows within the different panes. It also includes support for multiple workspaces (as do most WMs) and even multiple monitors if you have them.</p>
+
+<p>I&rsquo;ve been playing with xmonad for a little while now and I quite enjoy it. It allows me to work easily from the command line but still run my X apps without too much hassle. I&rsquo;ve found, however, that with programs like Firefox which pop up smaller windows on occasion (e.g., file and settings dialogs), it&rsquo;s best to run in full-screen mode. When running in the normal tiling mode, the popups sometimes take on strange proportions as they are squeezed into the existing layout. Using full-screen mode usually gives them their natural dimensions.</p>
+
+<p>No title bars, no icons, no nonsense. This window manager is very simple, clean, and fast. There&rsquo;s a bit of a learning curve with all the keyboard navigation, but for any Linux hacker who knows <a href="http://www.vim.org/">vim</a>, it shouldn&rsquo;t be too hard to pick up.</p>
+
+<p>Mostly for my own benefit, but also for any  fellow Linux geeks, I&rsquo;ve posted the process I went through to install xmonad:
+<ol>
+    <li>First make sure you look at the <a href="http://xmonad.org/intro.html">overview</a>, which includes everything you need to get started. It describes how to get the Haskell compiler and the required packages, including mtl, X11, and X11-extras (those were the three I had to get myself).</li>
+    <li>Once I had installed all the required packages, I installed <a href="http://gotmor.googlepages.com/dzen">dzen</a> and dmenu (which involved compiling them from source with <span style="font-family:monospace;">make</span>).</li>
+    <li>At this point, you want to edit xmonad&rsquo;s Config.hs script to put a space at the top for dzen to run as the status bar. This file is in the source directory for xmonad. Open it and find the line that says &ldquo;<span style="font-family:monospace;">defaultGaps = [(0,0,0,0)]</span>&rdquo; and replace it with &ldquo;<span style="font-family:monospace;">defaultGaps = [(18,0,0,0)]</span>&rdquo;.</li>
+    <li>Now compile xmonad with the runhaskell command, as described in the documentation. (Make sure to keep the source around, since any reconfiguration you do requires recompilation.)</li>
+    <li>I found it easiest to use the .xsession script to launch xmonad from the gdm, rather than using a .desktop file in /usr/share/xsessions, since it&rsquo;s easier to specify startup programs and the like. Here is my .xsession script:</p>
+
+<p><blockquote>unclutter -idle 1 &amp;
+while true ; do
+    bt=<code>acpi -b | sed -n 's/.*, ([0-9]*%).*$/1/;1p' | xargs printf 'Battery: %sn'</code>
+    tm=<code>date +&quot;%H:%M %a %b %d&quot;</code>
+    printf &ldquo;%s | %sn&rdquo; &ldquo;$bt&rdquo; &ldquo;$tm&rdquo;
+    sleep 60
+done | dzen2 -ta r -fg &lsquo;#ffffff&rsquo; -bg &lsquo;#808080&rsquo; &amp;
+xterm &amp;
+xmonad</blockquote>
+</li>
+<li><ul><li>The unclutter command instructs X to hide the mouse once it&rsquo;s been idle for one second. (There is a package for unclutter in Ubuntu.)</li>
+    <li>The next six lines describe the text I want dzen to display in the status bar. The &ldquo;date&rdquo; part displays the date in the form &ldquo;21:59 Fri Jul 13&rdquo;. The other part extracts the battery percentage from acpi and formats it (which is important because I&rsquo;m on a laptop).</li>
+    <li>The printf command concatenates those two pieces of information.</li>
+    <li>The sleep command tells dzen to wait 60 seconds between each update.</li>
+    <li>The last line actually passes that loop to dzen and sets some options.</li>
+    <li>The second-to-last line starts a terminal so I can start using it as soon as I log in. (Otherwise it just presents a blank screen and the status bar.)</li>
+    <li>Finally, the xmonad command starts the window manager itself.</li>
+</ul>
+</li>
+    <li>Now it&rsquo;s play time! Experiment with the layout features and keyboard shortcuts and customize to your heart&rsquo;s content! And long live the terminal! ;)</li>
+</ol>
+So there we go. Yet another nifty window manager for Linux.</p>
+
+<p>UPDATE: Tassilo posted some more technical information about xmonad on his blog. <a href="http://tsdh.wordpress.com/2007/06/24/xmonad-does-things-just-right/">Take a look</a> if you&rsquo;re interested in diving in yourself. Also, thanks the the guys at xmonad for <a href="http://xmonad.org/press.html">their link</a>.</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2007/07/16/one-window-manager-to-rule-them-all"> One window manager to rule them all...?</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2007/07/05/usability-the-iphone-and-fitts-law"> Usability, the iPhone, and Fitt&#39;s law</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

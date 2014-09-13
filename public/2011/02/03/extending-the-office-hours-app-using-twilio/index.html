@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Extending the Office Hours app using Twilio &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Extending the Office Hours app using Twilio</h1>
+                        <time class="li-article-date">Thursday 03 February 2011</time>
+                    </header>
+                    <section>
+                        <p><em>This is the second in a series of three posts about this app. The other pages are <a href="/2011/02/02/using-google-calendar-data-in-a-kynetx-app/">here</a> and <a href="/2011/02/03/office-hours-reporting-the-next-time-block/">here</a>.</em></p>
+
+<p>I extended my <a href="/2011/02/02/using-google-calendar-data-in-a-kynetx-app/">CS 462 office hours app</a> this morning to include some Twilio features. I used <a href="http://www.mostlybaked.com/how-i-created-an-instant-phone-auction-with-k">Sam&rsquo;s auction example</a> heavily, since the <a href="http://docs.kynetx.com/docs/Twilio">Kynetx docs</a> don&rsquo;t talk about SMS much.</p>
+
+<p>Basically, this app lets you call or text a phone number and find out whether I&rsquo;m in my office hours.</p>
+
+<p>I started by registering a phone number with Twilio. The number for this app is <strong>801.855.6574</strong>. Once I had the number, I added two handlers, one for voice and one for SMS. They look like this:</p>
+
+<p><a href="http://webhooks.kynetxapps.net/t/a163x40.dev/onanswer">http://webhooks.kynetxapps.net/t/a163x40.dev/onanswer</a></p>
+
+<p><a href="http://webhooks.kynetxapps.net/t/a163x40.dev/sms">http://webhooks.kynetxapps.net/t/a163x40.dev/sms</a></p>
+
+<p>I&rsquo;m using the &ldquo;.dev&rdquo; extension since I was developing this actively. I might change that for the production app.</p>
+
+<p>The KRL was pretty simple. I just needed two rules: one to handle the &ldquo;twilio onanswer&rdquo; event, one to handle the &ldquo;twilio sms&rdquo; event. That code looks like this:</p>
+
+<script src="https://gist.github.com/809919.js?file=a163x40.krl"></script>
+
+<p>I&rsquo;d like to extend this in a few ways. One will tell you the next time I have office hours if I&rsquo;m not there right now. Another might be allowing more options through SMS (asking whether I&rsquo;m there, what the next time slot is, etc.). Other ideas you have?</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/02/03/office-hours-reporting-the-next-time-block"> Office Hours app: Reporting the next time block</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/02/02/using-google-calendar-data-in-a-kynetx-app"> Using Google Calendar data in a Kynetx app</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

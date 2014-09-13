@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Installing Ubuntu in a dual-boot configuration &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Installing Ubuntu in a dual-boot configuration</h1>
+                        <time class="li-article-date">Thursday 05 November 2009</time>
+                    </header>
+                    <section>
+                        <p><a href="https://wiki.ubuntu.com/Artwork/Official"><img src="https://scnay-images.s3.amazonaws.com/globalconstant/ubuntucof.png" alt="Ubuntu Circle of Friends" title="Ubuntu Circle of Friends" width="120" height="120" class="alignright size-full wp-image-155" /></a>I&rsquo;ve installed Ubuntu several times on various machines in a dual-boot format, but I&rsquo;ve never blogged about it. In all cases, it&rsquo;s been with Windows on the first partition (mostly with XP, but also once with Vista on a new machine), so I&rsquo;ll use that as my example here.</p>
+
+<p>First things first. Get Windows ready. This usually includes <a href="http://support.microsoft.com/kb/314848">defragmenting</a> to get all your files at the beginning of the partition. That&rsquo;s pretty much it.</p>
+
+<p>Next, <a href="http://www.ubuntu.com/getubuntu/download">get the install CD</a> (from <a href="http://www.ubuntu.com/">Ubuntu</a> or your <a href="http://en.wikipedia.org/wiki/Linux_distributions">favorite distribution</a>).</p>
+
+<p>Boot into the installation CD. Ubuntu comes with a partition editor (<a href="http://gparted.sourceforge.net/">GParted</a>) on the CD, which you&rsquo;ll need soon.</p>
+
+<p>Resize your Windows partition in order to leave enough space for (a) the linux system itself, (b) a swap partition if your RAM isn&rsquo;t plentiful, and &copy; any other shared partitions you may want to make:
+<ul>
+<li>(a) In the case of Ubuntu, the <a href="http://www.ubuntu.com/products/whatisubuntu/desktopedition">minimum hard drive space required is 4 GB</a>, although in my experience at least 10-15 GB is better. This partition will probably be of type ext4 (at least, it is in the latest version of Ubuntu)</li>
+<li>(b) Depending on how much RAM you have and how much hard disk space is available, you may want to add a <a href="https://help.ubuntu.com/community/SwapFaq">swap partition</a>. This is a sort of paging file used to swap out segments of the RAM that aren&rsquo;t used very often, freeing up memory for more active applications. On my old machine, which has 512 MB RAM, I added a 1 GB swap partition. On my current machine with 4 GB RAM, I don&rsquo;t have any swap space at all and everything runs fine. It&rsquo;s up to you.</li>
+<li>&copy; If you want to be able to share files between Windows and linux (and haven&rsquo;t yet converted to a cooler solution like <a href="http://www.getdropbox.com/">Dropbox</a>), it might be wise to make a FAT32 partition that can be read by both operating systems. Make this one however large you need.</li></ul></p>
+
+<p>Be sure to tell the partition editor that you&rsquo;re going to want to put the root file system (/) on your ext4 partition, and ensure that your swap partition (if you made one) is correctly identified as such.</p>
+
+<p>If you&rsquo;ve made it this far, you&rsquo;re almost done. Now run the installer and let it work its magic.</p>
+
+<p>Ubuntu&rsquo;s always installed GRUB without a hitch. But if you do run into trouble, <a href="https://help.ubuntu.com/community/GrubHowto#Backup,%20Repairing%20and%20Reinstalling%20GRUB">this documentation from Ubuntu</a> is a good place to look.</p>
+
+<p>Congratulations, and welcome to linux!</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2009/11/06/sending-email-through-gmail-using-php"> Sending email through Gmail using PHP</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2009/10/13/oracle-10g-ora_rowscn-pseudocolumn"> Oracle 10g ORA_ROWSCN Pseudocolumn</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

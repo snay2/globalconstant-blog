@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>XHR AJAX doesn&#39;t work across subdomains &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">XHR AJAX doesn&#39;t work across subdomains</h1>
+                        <time class="li-article-date">Saturday 05 June 2010</time>
+                    </header>
+                    <section>
+                        
+
+<p>I&rsquo;ve finally come to the bottom of <a href="http://stackoverflow.com/questions/2961051/cas-authentication-and-redirects-with-jquery-ajax">a vexing problem</a>: XMLHttpRequest AJAX calls only work on the same subdomain.</p>
+
+<p>In addition, cookies are passed to their proper places as you would expect, and redirects are handled correctly by the browser. But the ultimate result that the webpage making the AJAX request and the web service returning the data must be on the same subdomain is a little disappointing.</p>
+
+<p>It&rsquo;s possible to overcome this with JSONP or by having the web service wrap its return value in a callback function. But for security reasons, we decided that this was not the best model for our web services and are seeking other solutions.</p>
+
+<hr />
+
+<p>If you&rsquo;re interested in the technical details of how I came to these conclusions, I&rsquo;ll describe them now.</p>
+
+<h2 id="toc_0">Protocols and subdomains</h2>
+
+<p>First of all, I set up my /etc/hosts file to have localhost.byu.edu and snay2.byu.edu point back to 127.0.0.1 for testing purposes. I also set up my local Tomcat 6 to take requests both on port 8080 (for normal HTTP) and on 8443 (for HTTPS) to test the different protocols. These are the results:</p>
+
+<ul>
+<li>When calling from a page on the HTTP side, access to services on HTTPS is disallowed. That is, the jQuery AJAX call returns an HTTP status code of 0. Firebug reveals that the request is actually made and that a response comes back, but the browser refuses to process it.</li>
+<li>The reverse is also true: When calling from a page on HTTPS, access to services on HTTP is disallowed.</li>
+<li>AJAX calls can&rsquo;t be made across subdomains. When I call from localhost.byu.edu to localhost.byu.edu the request succeeds (and returns data). But when I call from snay2.byu.edu to localhost.byu.edu (or the reverse), the HTTP status code is 0 and the browser won&rsquo;t let jQuery handle the data that comes back.</li>
+</ul>
+
+<p>The odd thing about all of this is that Firebug is showing that the requests were indeed made and that they come back with data. jQuery simply won&rsquo;t invoke the callback function I gave it to use the data. If anyone knows why that is, please enlighten me.</p>
+
+<h2 id="toc_1">Redirects and cookies</h2>
+
+<p>The other two issues that seemed to be involved in the problem (albeit indirectly) were redirects and cookies. CAS (<a href="http://en.wikipedia.org/wiki/Central_Authentication_Service">Central Authentication Service</a>) makes extensive use of HTTP redirects (usually a 302) to handle authentication. When initially trying to debug these web service calls, it was unclear whether the redirects simply weren&rsquo;t being handled by jQuery or if there was something else going on. A few tests with PHP scripts allowed me to confirm that jQuery AJAX does indeed handle redirects properly.</p>
+
+<p>The first PHP script makes an AJAX request (note that these scripts are all on the same subdomain):</p>
+
+<p><strong><code>test.php:</code></strong></p>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Test&lt;/title&gt;
+  &lt;script src=&quot;jquery.tools.customized.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+    var callService = function() {
+      var request = 'http://www.scnay.com/coe/services/landing.php';
+      $.get(request, gotResponse);
+    };
+
+    var gotResponse = function(data) {
+      alert(&quot;Got the results!! &quot; + data);
+    };
+
+   &lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;input type=&quot;button&quot; onclick=&quot;callService();&quot; value=&quot;Call service&quot; /&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>The second one sends a redirect to the browser:</p>
+
+<p><strong><code>landing.php:</code></strong></p>
+
+<pre><code>&lt;?php
+header('Location: http://www.scnay.com/coe/services/real.php');
+?&gt;
+</code></pre>
+
+<p>The third script returns some data:</p>
+
+<p><strong><code>real.php:</code></strong></p>
+
+<pre><code>&lt;?php
+echo 'Success!';
+?&gt;
+</code></pre>
+
+<p>Clicking the button from test.php sends a request to landing.php. The redirect is properly handled and the string &ldquo;Success!&rdquo; is returned from real.php. Redirects work!</p>
+
+<p>The other issue in question was cookies. CAS stores a TGT cookie on the cas.byu.edu domain so that the user doesn&rsquo;t have to re-login every time a CAS-secured request is made. The question was whether that TGT cookie was getting passed to cas.byu.edu when the request was made there, either explicitly or through a redirect.</p>
+
+<p>To test this, I first modified test.php to set a cookie. Then I modified real.php to return &ldquo;Success!&rdquo; only if the cookie was found and otherwise to return an error message.</p>
+
+<p>This simple test showed that the cookies are indeed passed along as would be expected.</p>
+
+<hr />
+
+<h2 id="toc_2">Conclusion</h2>
+
+<p>While the answer is not wholly satisfying (XMLHttpRequest AJAX calls can&rsquo;t be made across subdomains without using JSONP, callbacks, or proxies), at least we now know what&rsquo;s going on. Now to search for a reasonable solution&hellip;</p>
+
+<p>Do you have experience with this? Any suggestions I might try?</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2010/06/15/linux-notifications-for-kynetx-krl-command-line-tool"> Linux notifications for the Kynetx KRL command-line tool</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2010/05/26/why-im-switching-from-webos-to-android"> Why I&#39;m switching from webOS to Android</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

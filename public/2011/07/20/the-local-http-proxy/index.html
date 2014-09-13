@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>The local HTTP proxy &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">The local HTTP proxy</h1>
+                        <time class="li-article-date">Wednesday 20 July 2011</time>
+                    </header>
+                    <section>
+                        <p><em>This is the third in a series about the home automation prototype system. <a href="/2011/07/20/building-a-home-automation-system-prototype/">The first post is here.</a></em></p>
+
+<p>If you remember from <a href="/2011/07/20/building-a-home-automation-system-prototype/">this post</a>, there is an HTTP proxy that sits between the local home devices and the Internet. It can talk the protocols the devices understand as well as HTTP that KNS understands. Here&rsquo;s the system diagram again:</p>
+
+<p><a href="https://s3.amazonaws.com/scnay-images/globalconstant/home-automation-prototype-diagram.png"><img alt="" src="https://s3.amazonaws.com/scnay-images/globalconstant/home-automation-prototype-diagram.png" title="Home automation prototype diagram" class="aligncenter" width="600" /></a></p>
+
+<p>Right now, we don&rsquo;t have any physical devices (this is still a prototype), so rather than communicating with the devices, the server simply prints out the effect that the directives would have on them.</p>
+
+<p>If you remember the functions I described in the previous post, you&rsquo;ll get a feel for what the server protocol looks like. Here they are again:</p>
+
+<script src="https://gist.github.com/1095411.js?file=use_tunnel.js"></script>
+
+<p>Sinatra makes it very easy to write the server (although you could use <a href="/2011/07/14/simple-comparison-of-sinatra-and-bottle/">something like Bottle or Flask</a> if you prefer). We use global variables (in the <code>settings</code> object) to keep track of &ldquo;device&rdquo; state. The server looks like this:</p>
+
+<script src="http://gist-it.appspot.com/github/snay2/home-emulator/raw/master/server.rb"></script>
+
+<p>Once we get further in this project, we plan to get some real hardware and make it talk to the server. For now, though, we just have to read the output from Sinatra&rsquo;s logs to see how the directives are taking effect.</p>
+
+<p>Here&rsquo;s an example interaction when the <code>phone:incoming_call</code> event was raised. The <code>media_state</code> and <code>light_level</code> are checked, and then they are both set. (See the rule that handles this event <a href="/2011/07/20/building-a-home-automation-system-prototype/#krl">here</a>.)</p>
+
+<pre><code>eridanus:home-emulator snay2$ ruby -rubygems server.rb 
+==Sinatra/1.2.6 has taken the stage on 4567 for development with backup from Mongrel
+127.0.0.1 - - [20/Jul/2011 12:24:15] &quot;GET /media_state HTTP/1.0&quot; 200 23 0.0003
+127.0.0.1 - - [20/Jul/2011 12:24:16] &quot;GET /light_level HTTP/1.0&quot; 200 19 0.0003
+Media state is now stop. Was stop.
+127.0.0.1 - - [20/Jul/2011 12:24:16] &quot;GET /media_state/stop HTTP/1.0&quot; 200 23 0.0004
+Light level now 10. Was 10.
+127.0.0.1 - - [20/Jul/2011 12:24:16] &quot;GET /light_level/10 HTTP/1.0&quot; 200 19 0.0005
+</code></pre>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/07/23/home-automation-prototype-screencast"> Home automation prototype screencast</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/07/20/using-localtunnel-with-a-kynetx-app"> Using localtunnel with a Kynetx app</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

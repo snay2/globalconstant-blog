@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Some notes on the Collatz Conjecture &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Some notes on the Collatz Conjecture</h1>
+                        <time class="li-article-date">Friday 08 January 2010</time>
+                    </header>
+                    <section>
+                        <p>Part of my Computational Theory (CS 252) class this semester deals with the proof (or rather the lack thereof) of the <a href="http://en.wikipedia.org/wiki/Collatz_conjecture">Collatz conjecture</a>. We were assigned a group problem to &ldquo;prove&rdquo; the conjecture, the point being, of course, that we would examine it and try to find patterns (since the likelihood of a few undergraduate CS students discovering such a proof is rather small). I found the conjecture <a href="http://twitter.com/snay2/status/7542989235">fascinating</a> and decided to post a few of the observations made by our group and myself.</p>
+
+<p>Here is a flowchart of how the Collatz conjecture works:</p>
+
+<p><a href="https://scnay-images.s3.amazonaws.com/globalconstant/collatz.png"><img src="https://scnay-images.s3.amazonaws.com/globalconstant/collatz.png" alt="" title="Collatz conjecture" width="480" height="160" class="aligncenter size-full wp-image-210" /></a></p>
+
+<p>One of our group members wrote a short Java program to run the Collatz conjecture on arbitrary input. I ran it on two data sets, one with the natural numbers {1..20} and one with the natural numbers {1..100}. I imported these into a spreadsheet and generated graphs of each of them. Here&rsquo;s the graph over the {1..20} set:</p>
+
+<p><a href="https://scnay-images.s3.amazonaws.com/globalconstant/collatz1.png"><img src="https://scnay-images.s3.amazonaws.com/globalconstant/collatz1_small.png" alt="" title="Collatz graph over the integers {1..20}" width="480" height="290" class="size-full wp-image-216" /></a></p>
+
+<p>Some interesting observations about this data set:
+<ul>
+<li>{15} maxed out at 160 (max of the whole range)</li>
+<li>{19} maxed out at 88</li>
+<li>{7, 9, 11, 14, 17, 18} maxed out at 52<ul>
+    <li>All of these integers reduce to 17 somewhere along the line, and 52 is the next iteration after 17</li></ul></li>
+</ul></p>
+
+<p>It&rsquo;s also interesting to note that the even integers {1..20} start going down first on the graph, and the odd numbers go up first. The odd integers usually, but not always, max out higher than the even integers.</p>
+
+<p>This is the graph of the set of integers {1..100}:</p>
+
+<p><a href="https://scnay-images.s3.amazonaws.com/globalconstant/collatz2.png"><img src="https://scnay-images.s3.amazonaws.com/globalconstant/collatz2_small.png" alt="" title="Collatz graph over the integers {1..100}" width="480" height="283" class="size-full wp-image-215" /></a></p>
+
+<p>Of the integers in this set, {27, 31, 41, 47, 54, 55, 62, 63, 71, 73, 82, 83, 91, 94, 95, 97} max out at 9232 (which is the max of the entire range).</p>
+
+<p>Another of our group members noticed an interesting pattern in the output for the integers in the set {7, 15, 32, 63}. These integers are related to the number preceding them in the set by the formula <em>3n + 1</em>. For example, <em>3 * 7 + 1 = 15</em>. Here is the sequence generated by Collatz for 7:</p>
+
+<p>(7, 22, 11, <strong>34</strong>, 17, <strong>52</strong>, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1)</p>
+
+<p>And for 15:</p>
+
+<p>(15, 46, 23, 70, <strong>35</strong>, 106, <strong>53</strong>, 160, 80, 40, 20, 10, 5, 16, 8, 4, 2, 1)</p>
+
+<p>First of all, you can note that the last 9 elements of both of these sequences are the same. That is, once 7 is reduced to 13, the next element in the sequence is 40, and once 15 is reduced to 80, the next element in the sequence is also 40. Once the two have reached that common point, the rest of their sequences are the same.</p>
+
+<p>But the intriguing observation is the bolded numbers in each sequence. in the 15 sequence, we eventually reach 35, which is one greater than 34 in the 7 sequence. Each sequence then has some arbitrary number, after which the next element of each sequence again differs by one. In the case of 7 and 15, this occurs only twice. The same pattern can be seen in the sequences for 31 and 63, but they are not reproduced here. (See the CSV files below for the data.)</p>
+
+<p>After 63, however, the pattern breaks. 127 does not exhibit this phenomenon. A graph of the sequences for {7, 15, 31, 63, 127} shows this:</p>
+
+<p><a href="https://scnay-images.s3.amazonaws.com/globalconstant/collatz3.png"><img src="https://scnay-images.s3.amazonaws.com/globalconstant/collatz3_small.png" alt="" title="3n+1 series" width="480" height="175" class="size-full wp-image-224" /></a></p>
+
+<p>Here is apparent that 127 reduces fairly quickly, compared to 31 and 63, for example. This shows that 127 fails to carry on the pattern observed for the integers {7, 15, 31, 63}.</p>
+
+<p>In step 13 of the 31 sequence and step 14 of the 63 sequence, both sequences reduce to 364. After this point, they parallel each other (differing by one step) until they reduce to 1. This is easy to spot in the above graph, and it helps explain the clusters of similarly shaped lines for the sequences in, for example, the graph over the integers {1..100}.</p>
+
+<p>The data used for these graphs can be downloaded <a href="https://scnay-images.s3.amazonaws.com/globalconstant/outputs20.csv">here ({1..20})</a>, <a href="https://scnay-images.s3.amazonaws.com/globalconstant/outputs100.csv">here ({1..100})</a>, and <a href="https://scnay-images.s3.amazonaws.com/globalconstant/outputs_pattern.csv">here ({7, 15, 31, 63, 127})</a>. The data series are on the rows and are comma-separated.</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2010/02/13/palm-pre-plus-vs-iphone-os"> Palm Pre Plus vs. iPhone OS</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2009/12/26/smart-gets-things-done-ideas-for-the-programmer"> Smart &amp; Gets Things Done: Ideas for the programmer</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

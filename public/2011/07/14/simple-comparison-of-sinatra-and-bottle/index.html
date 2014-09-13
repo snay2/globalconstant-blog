@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Simple comparison of Sinatra and Bottle &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Simple comparison of Sinatra and Bottle</h1>
+                        <time class="li-article-date">Thursday 14 July 2011</time>
+                    </header>
+                    <section>
+                        <p>I needed to write a very simple web server today. I maintained a small <a href="http://www.sinatrarb.com/">Sinatra</a> server when I was the <a href="/2011/04/19/cs-462-in-conclusion/">TA for CS 462</a>. The code was clean and sensible, so I decided to give it a try.</p>
+
+<p>However, liking Python as I do, I <a href="http://stackoverflow.com/questions/3070469/what-python-equivalent-of-sinatra-would-you-recommend">went searching</a> for a Sinatra lookalike for Python. There are a few, but I tried <a href="http://bottlepy.org">Bottle</a>.</p>
+
+<p>I implemented the server using both frameworks for comparison. Here&rsquo;s what the code for each looks like, with Bottle on the left and Sinatra on the right (click to enlarge):</p>
+
+<p><a href="https://s3.amazonaws.com/scnay-images/globalconstant/sinatra-bottle.png"><img alt="" src="https://s3.amazonaws.com/scnay-images/globalconstant/sinatra-bottle.png" title="Bottle vs. Sinatra" class="aligncenter" width="600" /></a></p>
+
+<p>The Bottle version of the server is several lines longer and not quite as succinct. While I&rsquo;m still new to Ruby, there are several things I like better about its syntax than Python&rsquo;s (e.g., the <code>.to_i</code> operator, beestings, better handling of &ldquo;global&rdquo; variables&ndash;settings in this case).</p>
+
+<p>I think Sinatra wins here. What do you think?</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/07/20/building-a-home-automation-system-prototype"> Building a home automation system prototype</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/07/01/dialoguing-module"> Dialoguing module</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

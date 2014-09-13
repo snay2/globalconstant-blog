@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Using localtunnel with a Kynetx app &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Using localtunnel with a Kynetx app</h1>
+                        <time class="li-article-date">Wednesday 20 July 2011</time>
+                    </header>
+                    <section>
+                        <p><em>This is the second in a series about the home automation prototype system. <a href="/2011/07/20/building-a-home-automation-system-prototype/">The first post is here.</a></em></p>
+
+<p>The home automation prototype we&rsquo;re building in my research lab has an HTTP proxy that translates communication between the in-home devices (DVD player and light dimmer in our example) and KNS. This proxy is running on the local home network and may not have a public IP address or domain name. That causes problems when we want a KRL ruleset to be able to talk directly to the proxy.</p>
+
+<p>I first heard about <a href="https://github.com/progrium/localtunnel"><code>localtunnel</code></a> over a month ago <a href="http://www.twilio.com/engineering/2011/06/06/making-a-local-web-server-public-with-localtunnel/">when Twilio announced it</a>. It&rsquo;s a service that lets you tunnel any port on your local machine to a publicly accessible domain name. The domain name is randomly generated, providing some security by obscurity. This is the perfect solution for letting KNS talk to the local proxy in our system.</p>
+
+<p>There&rsquo;s still one problem, though. Every time the localtunnel is reestablished, the domain name changes. I could go manually edit the KRL each time that occurs so that it always points to the right place, but that is unreasonable in a production environment.</p>
+
+<p><strong>The KRL</strong>
+The solution is to have the proxy server ping a webhook on the same KRL ruleset every time the server gets a new localtunnel address. Then the ruleset simply keeps that address around in an app variable. Here&rsquo;s what the KRL looks like for that:</p>
+
+<script src="https://gist.github.com/1095411.js?file=set_tunnel.js"></script>
+
+<p><a id="functions"></a>To use it, we simply reference the app variable. These are the functions I <a href="/2011/07/20/building-a-home-automation-system-prototype/#krl">mentioned in the last post</a> that handle communication with the proxy server:</p>
+
+<script src="https://gist.github.com/1095411.js?file=use_tunnel.js"></script>
+
+<p><strong>The proxy server</strong>
+The HTTP proxy itself is running Sinatra, so it listens on port 4567 by default. To use <code>localtunnel</code>, I&rsquo;d normally just write this:</p>
+
+<p><code>$ localtunnel 4567</code></p>
+
+<p>Which spits out something like this:</p>
+
+<p><code>   This localtunnel service is brought to you by Twilio.
+   Port 4567 is now publicly accessible from <a href="http://3pjg.localtunnel.com">http://3pjg.localtunnel.com</a> &hellip;</code></p>
+
+<p>To automate it, however, I need to get that URL programmatically. Parsing the output wouldn&rsquo;t work, because the <code>localtunnel</code> instance stays running as long as the tunnel is open. I ultimately decided to fork the repo on Github and add the feature myself. Here&rsquo;s the <a href="https://github.com/progrium/localtunnel">original repo</a>, and here&rsquo;s <a href="https://github.com/snay2/localtunnel">my fork</a>.</p>
+
+<p>What I added was a function that pings a webhook once the URL has been obtained from the <code>localtunnel</code> web service. <a href="https://github.com/snay2/localtunnel/commit/e014884b3286e962edb61d7bbdca5c83a5b24826#lib/localtunnel/tunnel.rb">Take a look at the diff.</a></p>
+
+<p>Now all I have to do is call <code>LocalTunnel::Tunnel.new()</code> and pass the webhook URL as well. Like this:</p>
+
+<script src="https://gist.github.com/1095411.js?file=open_tunnel.rb"></script>
+
+<p>Every time I start the Sinatra server, I also run this script to open the <code>localtunnel</code> and notify the KRL ruleset of the change. No manual updating, and everything works great.</p>
+
+<p>In a production system, we&rsquo;d want to authenticate everything so that a rogue server can&rsquo;t come in and redirect our traffic to a different place. But for the prototype, this is sufficient.</p>
+
+<p><strong>Note:</strong> If you want to follow the whole project, you can <a href="https://github.com/snay2/home-emulator">find it on Github</a>.</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/07/20/the-local-http-proxy"> The local HTTP proxy</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/07/20/building-a-home-automation-system-prototype"> Building a home automation system prototype</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Dialoguing module &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Dialoguing module</h1>
+                        <time class="li-article-date">Friday 01 July 2011</time>
+                    </header>
+                    <section>
+                        <p>You may remember my previous two posts about dialoguing. I illustrated two methods for doing it: <a href="/2011/06/17/combining-client-side-processing-with-server-side-in-krl/">form submission with <code>watch()</code></a> and <a href="/2011/06/21/using-web-events-to-do-dialoguing/">web events</a>. I&rsquo;ve been using the second of those methods so much that I wanted to abstract it out to a module. <a href="http://apps.kynetx.com/modules/a163x121">a163x121 is the result.</a></p>
+
+<p><strong>Documentation</strong></p>
+
+<p>Here&rsquo;s how it works. First, there are two configuration options that you need to specify when you import the module:</p>
+
+<ul>
+<li><em>app_id</em> - the ruleset ID that will respond to the web events that will be raised. Usually this will be the same as the ruleset in which you are using the module.</li>
+<li><em>app_version</em> - either "dev" or "". If you specify "dev", the module will raise web events to the dev version of the ruleset. If you leave it blank, it will raise web events to the production version of the ruleset.
+</ul>
+
+<p>There is one method that does it all, called <code>get_data()</code>. Here are the parameters:</p>
+
+<ul>
+<li><em>selectors</em> - an array of the jQuery selectors that identify the DOM element whose data you want to extract</li>
+<li><em>method</em> - usually "val" or "html". The jQuery method to get the data out of the DOM element.</li>
+<li><em>param_names</em> - an array parallel to <em>selectors</em> that describes the names that should be given to the data once they are extracted. These will be accessible in the handling rule via <code>event:param("...")</code>.</li>
+<li><em>event_name</em> - the name of the web event that will be raised once the data is retrieved. You will be writing a rule to respond to this event.</li>
+<li><em>callback</em> - the name of the JavaScript function that should wrap this code. This is useful if you want to extract the data when the user clicks a button (e.g., on a search form). If you do not wish to use a callback (i.e., you want the extraction code to run right away), pass an empty string.</li>
+</ul>
+
+<p><strong>Example</strong></p>
+
+<p>I retrofitted the example from this post to use the new module, so the code may look familiar to you. First, I added one line to the <code>meta</code> block:</p>
+
+<blockquote>use module a163x121 alias dialogue with app_id="a163x104" and app_version="dev"</blockquote>
+
+<p>Then I rewrote the rule a bit:</p>
+
+<script src="https://gist.github.com/1059053.js?file=draw.js"></script>
+
+<p>The <a href="https://gist.github.com/1038785#file_draw.js">original <code>byufb_dir_search()</code> function</a> contained two things: First there were some lines to unhides the search results box and show a progress bar; second there was the dialoguing code. Since the module only handles the dialoguing code, I broke out those first two lines into a new function called <code>byufb_dir_search_prep()</code>, which in turn calls <code>byufb_dir_search()</code>. The &ldquo;Search&rdquo; button calls the prep function. I passed the name &ldquo;byufb_dir_search&rdquo; to the dialoguing module&rsquo;s <code>get_data()</code> action so it knows what to name the JavaScript function.</p>
+
+<p>The rule that handles the web event is <a href="https://gist.github.com/1038785#file_handle.js">exactly the same as before</a>; no changes were necessary.</p>
+
+<p><strong>Conclusion</strong></p>
+
+<p>This simplifies the code by abstracting out the mundane JavaScript to get data from the page and raise a web event containing that data.</p>
+
+<p>What do you think?</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/07/14/simple-comparison-of-sinatra-and-bottle"> Simple comparison of Sinatra and Bottle</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/06/25/goodreads-across-the-web"> Goodreads Across the Web</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

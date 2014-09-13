@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Office Hours app: Reporting the next time block &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Office Hours app: Reporting the next time block</h1>
+                        <time class="li-article-date">Thursday 03 February 2011</time>
+                    </header>
+                    <section>
+                        <p><em>This is the third in a series of three posts about this app. The other pages are <a href="/2011/02/02/using-google-calendar-data-in-a-kynetx-app/">here</a> and <a href="/2011/02/03/extending-the-office-hours-app-using-twilio/">here</a>.</em></p>
+
+<p>If you text the CS 462 Office Hours app and get back a response that I&rsquo;m not currently holding hours, it&rsquo;d be nice to know when the next time is that I&rsquo;ll be in. I modified the app using the <a href="http://www.mostlybaked.com/kyntwilgoocal-tell-me-when">next() function in Sam&rsquo;s module</a> to do just that.</p>
+
+<p><a href="http://scnay-images.s3.amazonaws.com/globalconstant/ta-office-hours-text.png"><img alt="" src="http://scnay-images.s3.amazonaws.com/globalconstant/ta-office-hours-text.png" title="Next office hours text" class="aligncenter" width="550" /></a></p>
+
+<p>This was fairly simple. Here are the important pieces of code. First, the modified SMS rules (rules for voice calls are similar):</p>
+
+<script src="https://gist.github.com/810317.js?file=a163x40.krl"></script>
+
+<p>This is supported by a function in the global block, similar to Sam&rsquo;s &ldquo;verbaldate&rdquo; function:</p>
+
+<script src="https://gist.github.com/810320.js?file=a163x40.krl"></script>
+
+<p>What&rsquo;s next? Perhaps durations: I&rsquo;m currently holding office hours, but how long will that last (i.e., when does this shift end)? I&rsquo;d also like to modify the messages to say &ldquo;today at 3 PM&rdquo; instead of &ldquo;Thursday (Feburary 3) at 3 PM&rdquo;. Lots of good ideas. What do you think?</p>
+
+<p>EDIT: I added durations to the SMS and voice calls, as well as to the class wiki annotation. In addition, we planted site tags there, so everyone sees the schedule now. :)</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/02/10/coding-in-the-cloud-sourcekit"> Coding in the cloud: SourceKit</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/02/03/extending-the-office-hours-app-using-twilio"> Extending the Office Hours app using Twilio</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

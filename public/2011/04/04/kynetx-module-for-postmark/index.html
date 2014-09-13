@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Kynetx module for Postmark &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Kynetx module for Postmark</h1>
+                        <time class="li-article-date">Monday 04 April 2011</time>
+                    </header>
+                    <section>
+                        <p><strong>UPDATE</strong>: This module is now listed in the Kynetx module directory. <a href="http://apps.kynetx.com/modules/a163x74">Check it out here</a>.</p>
+
+<p>There was a <a href="http://stackoverflow.com/questions/5524217/krl-can-i-send-an-email-with-emailforward">question on Stack Overflow</a> over the weekend about sending email through KRL. Sam&rsquo;s answer was that it&rsquo;s currently not possible in the runtime, but that you could create a module to work with a service like Postmark or SendGrid. I decided to take on the challenge.</p>
+
+<p>The first draft of this module only lets you send with from, to, subject, and HTML body, but I&rsquo;ll extend it to support everything in the <a href="http://developer.postmarkapp.com/developer-build.html">Postmark API</a>.</p>
+
+<p>Here&rsquo;s how to use it from your own app:</p>
+
+<script src="https://gist.github.com/902158.js?file=a163x75.krl"></script>
+
+<p>A few things to note:
+<ul>
+    <li>You need to provide keys to the module which contain your Postmark API key and the sender address. The sender is set globally here because that is more in line with the way the Postmark API works.</li>
+    <li>The <code>send_email()</code> action will automatically raise and HTTP post event called &ldquo;postmark_send&rdquo;. You can listen for this event and use the responses, as illustrated by the second rule in the ruleset.</li>
+    <li>You need your own account with Postmark to use this. The free portion of the API is limited in how much you can send. You&rsquo;re also not allowed to send bulk emails or anything of that sort. Using Postmark responsibly rests on your shoulders.</li>
+</ul></p>
+
+<p>Let me know what you think of it!</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/04/04/the-beginnings-of-a-google-docs-spreadsheet-krl-module"> The beginnings of a Google Docs spreadsheet KRL module</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/03/28/a-krl-module-for-stringbin"> A KRL module for StringBin</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

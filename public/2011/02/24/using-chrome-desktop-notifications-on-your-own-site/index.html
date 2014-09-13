@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Using Chrome desktop notifications on your own site &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Using Chrome desktop notifications on your own site</h1>
+                        <time class="li-article-date">Thursday 24 February 2011</time>
+                    </header>
+                    <section>
+                        <p>Google Chrome has an API to allow websites to use desktop notifications. This is the same thing that Google&rsquo;s apps (e.g., Gmail) and some Chrome extensions (e.g., TweetDeck) use for message notifications. It&rsquo;s drop-dead simple to use. Here&rsquo;s a simple example:</p>
+
+<script src="https://gist.github.com/843099.js?file=notifications.html"></script>
+
+<p>This does two things. First, it requests permission for the website to display notifications. This presents the user with this banner:
+<a href="http://scnay-images.s3.amazonaws.com/globalconstant/notification-permission.png"><img alt="" src="http://scnay-images.s3.amazonaws.com/globalconstant/notification-permission.png" title="Notification permission request" class="aligncenter" width="516" height="102" /></a></p>
+
+<p>Once permission has been obtained, the callback displays the notification like this:</p>
+
+<p><a href="http://scnay-images.s3.amazonaws.com/globalconstant/notification-display.png"><img alt="" src="http://scnay-images.s3.amazonaws.com/globalconstant/notification-display.png" title="Notification display" class="aligncenter" width="302" height="82" /></a></p>
+
+<p>Of course, you will want to use the checkPermission() function to make sure the user clicked &ldquo;Allow&rdquo;. If they denied permission, you might have to do something else.</p>
+
+<p>Here is some <a href="http://www.chromium.org/developers/design-documents/desktop-notifications/api-specification">documentation from the Chromium project</a> about Chrome&rsquo;s implementation, and here is <a href="http://0xfe.blogspot.com/2010/04/desktop-notifications-with-webkit.html">a more in-depth example</a>.</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/03/02/programming-sqs-with-python-and-boto"> Programming SQS with Python and Boto</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/02/22/using-a-configuration-file-for-boto"> Using a configuration file for Boto</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

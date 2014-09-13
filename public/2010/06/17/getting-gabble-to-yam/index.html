@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Getting Gabble to &#34;Yam!&#34; &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Getting Gabble to &#34;Yam!&#34;</h1>
+                        <time class="li-article-date">Thursday 17 June 2010</time>
+                    </header>
+                    <section>
+                        <p>I discovered Gabble this morning, a native Mac OS X client for Yammer. The interface is great, and it integrates seamlessly with Mac OS X. It offers threaded messaging, something the Adobe AIR client doesn&rsquo;t do (even though it&rsquo;s not quite as slick as the web application). It doesn&rsquo;t artificially truncate URLs, meaning you can copy and paste URLs directly to/from the messages themselves without having to do any hoop-jumping or black magic.</p>
+
+<p>It also uses Growl for its notifications.</p>
+
+<p>The only catch is that you can&rsquo;t use the default Yammer notification sounds. One of my friends particularly likes the one that says &ldquo;Yam!&rdquo; when a new message arrives.</p>
+
+<p>I figured out a way to satisfy his &ldquo;Yam!&rdquo; fix.</p>
+
+<p>Growl lets you customize notifications from individual applications, including specifying a sound that should play when a notification pops up. However, by default, only the typical Mac sounds are listed as options. But you can <a href="http://arstechnica.com/apple/news/2008/11/growl-tip-make-marsedit-any-app-play-custom-sound-alarms.ars">add a custom sound</a> to that list if you put the sound file in ~/Library/Sounds.</p>
+
+<p>Remember the Mac OS X program &ldquo;say&rdquo;? You can <a href="http://superuser.com/questions/135771/execute-a-shell-script-when-growl-notification-is-shown">use it to create sound files</a> as well. And if you use the voice &ldquo;Cellos&rdquo;, it sounds almost like the original &ldquo;Yam!&rdquo; sound from the AIR client. Run this command:</p>
+
+<blockquote>say -o ~/Library/Sounds/Yam.aiff -v Cellos yam</blockquote>
+
+<p>Now go to System Preferences and open up the Growl section. Click on Applications and then choose Gabble from the list. Click the Configure&hellip; button. You should now see an entry at the bottom of that list labeled &ldquo;Yam.&rdquo; Select that one and close Preferences.</p>
+
+<p>There you go! Now you can have the goodness of a native Mac OS X Yammer client, message threading, and no annoyingly truncated URLs, all without sacrificing that beloved &ldquo;Yam!&rdquo; sound.</p>
+
+<p>Enjoy!</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2010/06/24/do-it-yourself-mobile-optimization-a-proposition"> Do-it-yourself mobile optimization: A proposition</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2010/06/15/linux-notifications-for-kynetx-krl-command-line-tool"> Linux notifications for the Kynetx KRL command-line tool</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

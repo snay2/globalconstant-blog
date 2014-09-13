@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Building up an AMI from Ubuntu 10.04 LTS &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Building up an AMI from Ubuntu 10.04 LTS</h1>
+                        <time class="li-article-date">Friday 07 January 2011</time>
+                    </header>
+                    <section>
+                        <p>Now that I&rsquo;ve gotten the hang on Amazon EC2, I&rsquo;m ready to start building my actual stem cell server. I&rsquo;m starting from the Ubuntu 10.04 LTS image provided by Canonical (<a href="http://aws.amazon.com/amis/4347">ami-a403f7cd</a>). It&rsquo;s a bare-bones server instance that doesn&rsquo;t even have Apache on it yet, although it does have Python.</p>
+
+<p><strong>Setting up the Server</strong></p>
+
+<p>I&rsquo;m going to need the EC2 AMI tools, which requires allowing the Multiverse repository, so I added these to lines to my /etc/apt/sources.list.d/multiverse.list first:</p>
+
+<pre>
+deb http://us.ec2.archive.ubuntu.com/ubuntu/ karmic multiverse
+deb-src http://us.ec2.archive.ubuntu.com/ubuntu/ karmic main</pre>
+
+<p>Here are the packages I installed (after running apt-get update):</p>
+
+<pre>
+ec2-ami-tools
+ec2-api-tools
+apache2
+libapache2-mod-python</pre>
+
+<p>These packages may also be useful but aren&rsquo;t strictly necessary at this point:</p>
+
+<pre>
+python-cheetah
+python-dev
+python-setuptools
+python-simplejson
+python-pycurl
+python-imaging</pre>
+
+<p>I ran apt-get upgrade as well. This presented me with a couple prompts (one from GRUB), which I had to get through. And since it included a kernel update, I restarted the machine.</p>
+
+<p>Next, I added the necessary Python directives to my /etc/apache2/sites-available/default file, as I <a href="/2010/12/28/using-python-and-apache-2-on-ubuntu/">documented earlier</a>.</p>
+
+<p>I added a simple index.py page in /var/www to handle CGI requests. One thing that confused me for a long while is that index.py can&rsquo;t just be any old Python script; it has to be a CGI request handler. Here&rsquo;s a simple example:</p>
+
+<pre>
+def index(req):
+  return "Hello, world!"</pre>
+
+<p><strong>Creating and Registering the AMI</strong></p>
+
+<p>The next step is creating an AMI from this image and saving that to S3. I&rsquo;m using <a href="http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/index.html?creating-an-ami-s3-linux.html">this tutorial from Amazon</a> as my guide.</p>
+
+<p>There are three basic steps:</p>
+
+<ol>
+    <li><strong>Bundle the volume</strong>
+
+First, I got the X509 certificate and my private key and put them on /mnt. I also got my account number handy (available from the same place in the AWS console as the public/private keys). Then I ran these commands:
+
+<pre>sudo mkdir /mnt/image
+sudo ec2-bundle-vol -k PrivateKey.pem -c X509Cert.pem -u <strong>000000000000</strong> -d /mnt/image</pre>
+
+Replace the <strong>000000000000</strong> with your account ID.
+
+After several minutes, that created the AMI bundle in /mnt/image.</li>
+
+    <li><strong>Upload the bundle to S3</strong>
+
+I used this command:
+
+<pre>ec2-upload-bundle -b cs462-machines/<strong>snay2-test1</strong> -m /mnt/image/image.manifest.xml -a &lt;access key&gt; -s &lt;secret key&gt;</pre>
+
+Replace the <strong>snay2-test1</strong> with your own folder name inside the bucket.</li>
+
+    <li><strong>Register the AMI</strong>
+
+I have my dev machine set up such that I don't have to pass the keys along on the command line (see <a href="/2011/01/10/setting-up-my-development-environment-for-aws/">this post</a> for how I did that). But if you don't have it set up that way or if you want to run the command from your EC2 instance directly, that's possible too. Here is the command:
+
+<pre>ec2-register cs462-machines/<strong>snay2-test1</strong>/image.manifest.xml --K PrivateKey.pem -C X509Cert.pem</pre>
+
+Replace the <strong>snay2-test1</strong> with your own folder name inside the bucket.
+
+After a second, that came back with the AMI name. We're done!</li>
+</ol>
+
+<p>EDIT: Here is a <a href="https://help.ubuntu.com/community/EC2StartersGuide">detailed tutorial</a> from the Ubuntu community on the AMI tools and other necessary EC2 things.</p>
+
+<p>EDIT: Revised the last portion of the post to reflect the three basic steps of persisting an AMI.</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/01/10/overreliance-on-cloud-services"> Overreliance on cloud services</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/01/02/wireless-vnc-and-the-tv"> Wireless, VNC, and the TV</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

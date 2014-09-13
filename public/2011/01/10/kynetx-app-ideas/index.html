@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Kynetx app ideas &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Kynetx app ideas</h1>
+                        <time class="li-article-date">Monday 10 January 2011</time>
+                    </header>
+                    <section>
+                        <p>This is largely a response to Mike Grace&rsquo;s post this morning about <a href="http://mikegrace.tumblr.com/post/2685369401/recent-kynetx-app-ideas-and-thoughts">some ideas he has for Kynetx apps</a>. The first few are my take on his ideas, and the rest are some of my own ideas.</p>
+
+<ul>
+    <li><strong>Goodreads integration with LDS.org</strong> (from Mike) I really like this idea. I've been wanting to do some Kynetx apps with the <a href="http://www.goodreads.com/api">Goodreads API</a> myself, such as an Amazon.com annotator to allow you to add books directly from there to your Goodreads shelves. However, due to some<a href="http://stackoverflow.com/questions/4556840/use-oauth-for-the-goodreads-api"> current limitations in KNS</a>, it doesn't seem like I can write an app that uses the necessary OAuth to talk to the API. Hopefully that will be implemented someday.</li>
+    <li><strong>Google Reader suggestions</strong> (from Mike) I like this idea too. I have my own mental process for pruning out the articles that seem least relevant to me. But there's definitely an advantage to automating that. <a href="http://louisgray.com/">Louis Gray</a> and <a href="http://www.my6sense.com/">my6sense</a> have been doing some great work in that area. The problem is that I rarely read my RSS feeds on my phone, so I can't use any of their technology. I've also tried using <a href="https://chrome.google.com/extensions/detail/pnngeaoibaajihakbnngcfecdkinjjpf">PostRank</a>, a Chrome plugin for Google Reader, but that isn't helpful in determining what's relevant to <em>me</em>. A Kynetx app would be the perfect solution.</li>
+    <li><strong>Google Calendar/Twilio/email integration</strong> I wrote a bit about this one on Twitter a few months ago. My old boss wanted me to clock in within 15 minutes of my scheduled time every day. If there was ever a change to my schedule, he wanted an email informing him of such. I keep all that data up to date in a Google Calendar anyway, so I found it tedious to have to send him email as well. I'd like to build a Kynetx app that lets me watch my Google Calendar and send out notifications of various kinds (Twitter, SMS (Twilio), email, etc.) when something changes.</li>
+    <li><strong>Twitter bot</strong> I have a Kindle, which has the ability to post my notes and annotations to Twitter and Facebook when I want. It has one problem, however. If I just highlight a piece of text that I want to share (quote, as it were), all it puts in the tweet is a link to view the quote on Amazon's site. I want to write a Kynetx app that watches my Twitter stream (or perhaps that of another account I own dedicated to my Kindle) that can then read the quote I posted and repost it in a more reader-friendly format. This would also be a nice way to send my Kindle annotations as quotes to Goodreads, something I currently cannot do.</li>
+</ul>
+
+<p>There are some ideas. What do you think?</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/01/10/setting-up-my-development-environment-for-aws"> Setting up my development environment for AWS</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/01/10/overreliance-on-cloud-services"> Overreliance on cloud services</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

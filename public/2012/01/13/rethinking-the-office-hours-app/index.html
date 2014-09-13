@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Rethinking the Office Hours app &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Rethinking the Office Hours app</h1>
+                        <time class="li-article-date">Friday 13 January 2012</time>
+                    </header>
+                    <section>
+                        <p>It&rsquo;s Winter Semester at BYU, and I&rsquo;m again the TA for Phil Windley&rsquo;s Distributed System Design class (CS 462). This time, we roped <a href="https://twitter.com/#!/reedallred">Reed</a> into being a TA as well. We really liked the idea of the <a href="/2011/02/03/office-hours-reporting-the-next-time-block/">Office Hours app</a> from last year, but we have a few different requirements this year:</p>
+
+<ul>
+<li>There are two of us now, instead of just one, so the Google Calendar holding the hours got more complicated.</li>
+<li>Since Reed and I both work in a research lab, we want to be available to the students without having to sit down in the TA cubicles all day. We created "on-call" office hours, during which we are available to help students but we won't be physically present until someone actually shows up.</li>
+</ul>
+
+<p>Those two things increased the complexity of the problem fourfold. We used the same basic model as before (texting via Twilio) but chose a more distributed design:</p>
+
+<p><a href="https://s3.amazonaws.com/scnay-images/globalconstant/OfficeHoursApp.png"><img alt="" src="https://s3.amazonaws.com/scnay-images/globalconstant/OfficeHoursApp.png" title="Office Hours app flowchart" class="aligncenter" width="1100" height="1220" /></a></p>
+
+<p>Here is how this works in terms of events:</p>
+
+<ol>
+<li>The SMS is received by Twilio, raising a <strong>twilio:sms</strong> event to the dispatch ruleset.</li>
+<li>The dispatch ruleset checks the Google Calendar to see if anyone is on the schedule. If so, it raises a <strong>schedule_inquiry</strong> event to the rulesets handling hours for each TA. If not, it raises an <strong>absent</strong> event.</li>
+<li>The dispatch ruleset responds to the <strong>absent</strong> event by sending a text to the student that no TAs are on the schedule now. It also includes the date and time of the next office hours.</li>
+<li>The individual TA rulesets respond to the <strong>schedule_inquiry</strong> event by checking the calendar to see whether that TA is on the schedule right now. There are two possibilities: in office and on call. The former raises a <strong>present</strong> event; the latter raises an <strong>on_call_request</strong> event. The default behavior is to respond this way:
+<ul><li><strong>present</strong>: Text the student that {Steve|Reed} should be in the cubicle already.</li>
+<li><strong>on_call_request</strong>: Text {Steve|Reed} to get downstairs and reply to the student that he's on his way.</li></ul></li>
+</ol>
+
+<p>Separating the TA rulesets allows me and Reed to have the application behave differently for each of us. I prefer texting (or <a href="https://twitter.com/#!/snay2/status/156432650746339329">XMPP</a> if I ever figure out a <a href="https://twitter.com/#!/snay2/status/156448534013554689">good way</a> to do it), but Reed would prefer email, since his AT&amp;T iPhone gets bad reception in our lab. All I have to do is add another rule to respond to the <strong>on_call_request</strong> event and make it do whatever I want.</p>
+
+<p>Here is what my version of the TA ruleset looks like:</p>
+
+<script src="https://gist.github.com/1607554.js?file=a163x149.js"></script>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2012/02/27/implementing-the-drivers-personal-event-network-with-kynetx"> Implementing the driver&#39;s personal event network with Kynetx</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2012/01/13/to-read-your-speech-or-to-speak"> To read your speech or to speak</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

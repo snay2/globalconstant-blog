@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Combining client-side processing with server-side in KRL &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Combining client-side processing with server-side in KRL</h1>
+                        <time class="li-article-date">Friday 17 June 2011</time>
+                    </header>
+                    <section>
+                        <p><em><a href="/2011/06/21/using-web-events-to-do-dialoguing/">My next post</a> describes another way to do dialoguing. If this method doesn&rsquo;t work for you, try that one.</em></p>
+
+<p>Sometimes you need a Kynetx app to have access to the data on a page in the user&rsquo;s browser, but you can&rsquo;t do all the processing you need on the client side. Here&rsquo;s an example:</p>
+
+<p>I wrote an app a while ago that took the BYU Bookstore&rsquo;s &ldquo;MyBooklist&rdquo; web app and let the user look up those books on Amazon to compare prices. (The Bookstore has since added this functionality to its own website, so I&rsquo;ve discontinued my app.) I needed the ISBN numbers from the page (client-side), but then I needed to look them up in the Amazon product API (server-side, with KRL). I wrote some JavaScript and a special rule to allow me to extract that data from the page and send it back to the Kynetx servers so I could process it.</p>
+
+<p>The process is pretty simple. It goes like this:
+<ol>
+  <li>The first rule emits some JavaScript that will use jQuery to get the appropriate pieces of information from the page.</li>
+  <li>The rule also puts a hidden form on the page. The script adds the extracted data into fields on that form.</li>
+  <li>When the script finishes collecting the data, it triggers the submit action on the form.</li>
+  <li>All the while, this first rule has been <code>watch()</code>ing for that form to be submitted.</li>
+  <li>The second rule handles the event that gets raised (through <code>watch()</code>) when the form is submitted.</li>
+  <li>That rule extracts the data from the form and does any necessary operations with it (API lookups, storage, etc.) and takes appropriate actions.</li>
+</ol></p>
+
+<p>Here&rsquo;s a simplified version of the first rule from the BookComparison app:</p>
+
+<script src="https://gist.github.com/1032455.js?file=first-rule.js"></script>
+
+<p>You&rsquo;ll notice we&rsquo;re creating a series of input elements all with the name <code>isbnList[]</code> and some subscript. This will come in useful in the next rule, where we can <code>foreach</code> over those inputs. Here&rsquo;s the second rule:</p>
+
+<script src="https://gist.github.com/1032455.js?file=second-rule.js"></script>
+
+<p>This second rule handles a <code>web submit</code> event with the ID of the form given in quotes. Thereafter, it iterates over each of the ISBN numbers returned from the form. In the original app, this involved looking up the ISBN number in the Amazon API and then returning the price data back to the page (via an action like <code>replace</code> or <code>append</code>.)</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/06/21/using-web-events-to-do-dialoguing"> Using web events to do dialoguing</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/06/02/simple-stats-for-kynetx-apps"> Simple stats for Kynetx apps</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+

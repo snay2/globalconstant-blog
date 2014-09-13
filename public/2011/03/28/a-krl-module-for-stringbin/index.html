@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>A KRL module for StringBin &middot; Global Constant</title>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://blog.scnay.com/css/main.min.css" />
+        <link rel="alternate" href="" type="application/rss+xml" title="Global Constant" />
+        <style type="text/css">
+            .alignright {
+                float: right;
+            }
+        </style>
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://blog.scnay.com">Global Constant</a>
+                <br />Steve Nay&#39;s ramblings</div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        <li><a href="/archive">Archives</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    <li><a href="/archive">Archives</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">A KRL module for StringBin</h1>
+                        <time class="li-article-date">Monday 28 March 2011</time>
+                    </header>
+                    <section>
+                        <p><strong>UPDATE</strong>: This module is now listed in the Kynetx module directory. <a href="http://apps.kynetx.com/modules/a163x63">Check it out here.</a></p>
+
+<p>This morning I wrote my first KRL module. If you <a href="/2011/02/02/using-google-calendar-data-in-a-kynetx-app/">remember from February</a>, Sam Curren wrote a Google Calendar module that I used in my own Kynetx app for CS 462. Sam has since written the entire Kynetx <a href="https://gist.github.com/883521">Twilio functionality</a> as a module. I&rsquo;ve had some ideas brewing for modules I&rsquo;d like to write. So I started today with a really simple one: StringBin.</p>
+
+<p><a href="http://stringbin.com/">StringBin</a> is a service that Mike Grace wrote a while ago. It basically lets you store key-values pairs. That&rsquo;s it. There are two endpoints in <a href="http://stringbin.com/documentation">the API</a>: read and write. Both are accessed via GET.</p>
+
+<p>Writing a module for this is really simple. I just needed to provide two functions (read and write) that take the correct arguments. Here&rsquo;s what the module code looks like, including the tests that are embedded in the ruleset:</p>
+
+<script src="https://gist.github.com/890894.js?file=a163x63.krl"></script>
+
+<p>Importing the module into another ruleset is as simple as entering your StringBin PIN in a key block and then including this in the meta block:</p>
+
+<p><code>use module a163x63 alias stringbin with stringbinkeys = keys:stringbin()</code></p>
+
+<p>Here&rsquo;s what it looks like in a full ruleset:</p>
+
+<script src="https://gist.github.com/890894.js?file=a163x64.krl"></script>
+
+<p>Feel free to use this module and let me know what you think of it!</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        Later article<br />
+                        <a href="http://blog.scnay.com/2011/04/04/kynetx-module-for-postmark"> Kynetx module for Postmark</a>
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://blog.scnay.com/2011/03/25/tomatoflix"> TomatoFlix</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC Attribution-ShareAlike 4.0 International</a>
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class="">Powered by <a href="http://hugo.spf13.com/">hugo</a>. Theme based on <a href="http://github.com/eliasson/liquorice/">liquorice</a>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    </body>
+</html>
+
