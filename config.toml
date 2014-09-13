@@ -1,0 +1,9 @@
+baseurl = "http://blog.scnay.com/"
+languageCode = "en-us"
+title = "Global Constant"
+
+[params]
+Description = "Steve Nay's ramblings"
+twitter = "snay2"
+github = "snay2"
+
