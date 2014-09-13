@@ -3,7 +3,7 @@
   <channel>
       <title>Archives on Global Constant </title>
       <generator uri="https://hugo.spf13.com">Hugo</generator>
-    <link>http://blog.scnay.com/archive/index.xml/</link>
+    <link>http://snay2.github.io/archive/index.xml/</link>
     <language>en-us</language>
     
     
@@ -11,10 +11,10 @@
     
     <item>
       <title>17:05</title>
-      <link>http://blog.scnay.com/2013/08/16/1705</link>
+      <link>http://snay2.github.io/2013/08/16/1705</link>
       <pubDate>Fri, 16 Aug 2013 09:24:04 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2013/08/16/1705</guid>
+      <guid>http://snay2.github.io/2013/08/16/1705</guid>
       <description>&lt;p&gt;He sits nestled between the window and two harried businessmen,&lt;br /&gt;
 Sunk into an uncomfortable beige chair&lt;br /&gt;
 One foot planted atop the heating vent on the wall&lt;br /&gt;
@@ -49,10 +49,10 @@ As the train roars away.&lt;/p&gt;
     
     <item>
       <title>In Defense of Marriage: The Supreme Court&#39;s Rulings and Their Implications</title>
-      <link>http://blog.scnay.com/2013/06/26/in-defense-of-marriage</link>
+      <link>http://snay2.github.io/2013/06/26/in-defense-of-marriage</link>
       <pubDate>Wed, 26 Jun 2013 15:53:07 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2013/06/26/in-defense-of-marriage</guid>
+      <guid>http://snay2.github.io/2013/06/26/in-defense-of-marriage</guid>
       <description>
 
 &lt;p&gt;The Supreme Court &lt;a href=&#34;http://www.npr.org/blogs/thetwo-way/2013/06/26/195857796/supreme-court-strikes-down-defense-of-marriage-act&#34;&gt;ruled today&lt;/a&gt; that the Defense of Marriage Act, which denies some federal benefits to citizens in legal, state-recognized homosexual marriages, is unconstitutional. It also ordered the Ninth Circuit Court of Appeals to dismiss the Proposition 8 case it previously ruled on, effectively overturning the ballot initiative and making same-sex marriage legal again in California.&lt;/p&gt;
@@ -93,10 +93,10 @@ As the train roars away.&lt;/p&gt;
     
     <item>
       <title>Definition of a Friend</title>
-      <link>http://blog.scnay.com/2013/02/21/definition-of-a-friend</link>
+      <link>http://snay2.github.io/2013/02/21/definition-of-a-friend</link>
       <pubDate>Thu, 21 Feb 2013 10:43:18 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2013/02/21/definition-of-a-friend</guid>
+      <guid>http://snay2.github.io/2013/02/21/definition-of-a-friend</guid>
       <description>&lt;p&gt;When I was in junior high, an admired teacher gave me a beautiful book of friendship quotes. One that particularly struck me began, &amp;ldquo;What is a friend? I will tell you&amp;hellip;.Your soul can be naked with him.&amp;rdquo; The entire poem is insightful, but that sentence was especially compelling. A friend requires no pretenses, expects nothing more than what you are. He understands the flaws and contradictions in your character and accepts you notwithstanding.&lt;/p&gt;
 
 &lt;p&gt;I have since searched extensively for the source of the poem, which seems to be shrouded in mystery. Many have claimed authorship&lt;span style=&#34;vertical-align: super; font-size: 80%;&#34;&gt;&lt;a href=&#34;#f1&#34;&gt;1&lt;/a&gt;&lt;/span&gt; over the years, but the &lt;a href=&#34;http://books.google.com/books?id=FnstAQAAMAAJ&amp;pg=RA3-PA26#v=onepage&amp;q&amp;f=false&#34;&gt;earliest source&lt;/a&gt; I can find cites Dr. Frank Crane in the 1910s. Here is the transcription from that publication:&lt;span style=&#34;vertical-align: super; font-size: 80%;&#34;&gt;&lt;a href=&#34;#f2&#34;&gt;2&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
@@ -150,10 +150,10 @@ Through and underneath it all he sees, knows and loves&amp;mdash;you.&lt;/p&gt;
     
     <item>
       <title>Using a git post-receive hook for easy production deploys</title>
-      <link>http://blog.scnay.com/2013/02/20/using-a-git-post-receive-hook-for-easy-production-deploys</link>
+      <link>http://snay2.github.io/2013/02/20/using-a-git-post-receive-hook-for-easy-production-deploys</link>
       <pubDate>Wed, 20 Feb 2013 09:48:55 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2013/02/20/using-a-git-post-receive-hook-for-easy-production-deploys</guid>
+      <guid>http://snay2.github.io/2013/02/20/using-a-git-post-receive-hook-for-easy-production-deploys</guid>
       <description>&lt;p&gt;I have a git repository on my dev machine, which I use for developing and testing code locally. When I&amp;rsquo;m ready to deploy to production, I simply push that git repo to the server and use a post-receive hook there to move the code into the proper places. Here&amp;rsquo;s what my setup looks like.&lt;/p&gt;
 
 &lt;p&gt;My &lt;code&gt;~/.ssh/config&lt;/code&gt; has a Host entry called &lt;code&gt;prod&lt;/code&gt; for the production server that specifies where it lives and how to authenticate.&lt;/p&gt;
@@ -189,10 +189,10 @@ sudo apache2ctl restart
     
     <item>
       <title>ColdFusion 9 and IIS 7</title>
-      <link>http://blog.scnay.com/2013/02/08/coldfusion-9-and-iis-7</link>
+      <link>http://snay2.github.io/2013/02/08/coldfusion-9-and-iis-7</link>
       <pubDate>Fri, 08 Feb 2013 11:34:34 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2013/02/08/coldfusion-9-and-iis-7</guid>
+      <guid>http://snay2.github.io/2013/02/08/coldfusion-9-and-iis-7</guid>
       <description>&lt;p&gt;&lt;em&gt;I&amp;rsquo;m installing a ColdFusion application and ran into a few issues. Here, mostly for my future reference, is the process of solving those problems.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;ColdFusion was installed before IIS 7. As such, IIS didn&amp;rsquo;t have the correct handlers for ColdFusion files. Follow the &lt;a href=&#34;http://www.codecurry.com/2009/09/installing-coldfusion-on-iis-7.html&#34;&gt;instructions on Codecurry&lt;/a&gt; to get that resolved. The post is dated (the screenshots are on Vista), but the general process is still correct. Make sure these IIS features get installed: ASP.NET, .NET Extensibility, CGI, ISAPI Filters, and ISAPI Extensions. Then run the ColdFusion Web Server Configuration Tool to perform the necessary IIS configuration.&lt;/p&gt;
@@ -203,10 +203,10 @@ sudo apache2ctl restart
     
     <item>
       <title>Influential writing</title>
-      <link>http://blog.scnay.com/2012/11/02/influential-writing</link>
+      <link>http://snay2.github.io/2012/11/02/influential-writing</link>
       <pubDate>Fri, 02 Nov 2012 13:25:15 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2012/11/02/influential-writing</guid>
+      <guid>http://snay2.github.io/2012/11/02/influential-writing</guid>
       <description>&lt;p&gt;Scott Cowley on Twitter &lt;a href=&#34;https://twitter.com/scottcowley/status/264433138300760064&#34;&gt;posits&lt;/a&gt; that &amp;ldquo;You don&amp;rsquo;t earn the title of &amp;lsquo;well-read&amp;rsquo; by reading blog posts and news articles.&amp;rdquo; I mostly agree with his premise. Long-form printed literature is still instrumental in shaping the way we think and act as individuals and as a society. But modern evolutions of writing&amp;mdash;blog posts, essays, ebooks&amp;mdash;also have intellectually shaping capabilities. They both have place in the library of an educated, well-read citizen.&lt;/p&gt;
 
 &lt;p&gt;Here are some of the books that have profoundly influenced my thinking:
@@ -233,10 +233,10 @@ sudo apache2ctl restart
     
     <item>
       <title>DIY standing desk</title>
-      <link>http://blog.scnay.com/2012/10/15/diy-standing-desk</link>
+      <link>http://snay2.github.io/2012/10/15/diy-standing-desk</link>
       <pubDate>Mon, 15 Oct 2012 19:53:04 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2012/10/15/diy-standing-desk</guid>
+      <guid>http://snay2.github.io/2012/10/15/diy-standing-desk</guid>
       <description>&lt;p&gt;A month ago I decided to build a standing desk for my computer at home. By the time I finish my day job, I&amp;rsquo;m tired of sitting. Here&amp;rsquo;s what I did.&lt;/p&gt;
 
 &lt;p&gt;The &lt;a href=&#34;http://iamnotaprogrammer.com/Ikea-Standing-desk-for-22-dollars.html&#34;&gt;Standesk 2200&lt;/a&gt; caught my attention because it&amp;rsquo;s made from Ikea parts totaling $30: two &lt;a href=&#34;http://www.ikea.com/us/en/catalog/products/20011413/#/20011408&#34;&gt;side tables&lt;/a&gt; ($7.99 each), a &lt;a href=&#34;http://www.ikea.com/us/en/catalog/products/20167961/#/90167477&#34;&gt;shelf&lt;/a&gt; ($5.99), and two &lt;a href=&#34;http://www.ikea.com/us/en/catalog/products/56696109/#/80167473&#34;&gt;brackets&lt;/a&gt; ($4.00 each). Get a screwdriver, drill, level, and some wood screws (presumably already around the house) and put it together. Here&amp;rsquo;s what mine looks like:&lt;/p&gt;
@@ -257,10 +257,10 @@ sudo apache2ctl restart
     
     <item>
       <title>New vim tricks</title>
-      <link>http://blog.scnay.com/2012/09/27/new-vim-tricks</link>
+      <link>http://snay2.github.io/2012/09/27/new-vim-tricks</link>
       <pubDate>Thu, 27 Sep 2012 15:18:55 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2012/09/27/new-vim-tricks</guid>
+      <guid>http://snay2.github.io/2012/09/27/new-vim-tricks</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been using Vim since 2006, and it&amp;rsquo;s still my favorite text editor. My current job requires me to live in Visual Studio, so I&amp;rsquo;m using &lt;a href=&#34;http://visualstudiogallery.msdn.microsoft.com/59ca71b3-a4a3-46ca-8fe1-0e90e3f79329&#34;&gt;VsVim&lt;/a&gt;, a mostly-compatible Vim mode layered on top of the Visual Studio editor. My &lt;a href=&#34;https://github.com/snay2/configs&#34;&gt;.vimrc file&lt;/a&gt;, plugins, and syntax files are on my GitHub account.&lt;/p&gt;
 
 &lt;p&gt;Since Vim is such an important part of my development toolset, I&amp;rsquo;m always interested to learn new tricks and techniques to make it more efficient. A coworker gave a presentation on Vim today. It was intended as an introduction, but he managed to teach me quite a few useful new things in the process. Here are a few of them:&lt;/p&gt;
@@ -289,10 +289,10 @@ sudo apache2ctl restart
     
     <item>
       <title>Cost of ownCloud on S3 vs. Dropbox</title>
-      <link>http://blog.scnay.com/2012/09/11/cost-of-owncloud-vs-dropbox</link>
+      <link>http://snay2.github.io/2012/09/11/cost-of-owncloud-vs-dropbox</link>
       <pubDate>Tue, 11 Sep 2012 11:04:42 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2012/09/11/cost-of-owncloud-vs-dropbox</guid>
+      <guid>http://snay2.github.io/2012/09/11/cost-of-owncloud-vs-dropbox</guid>
       <description>&lt;p&gt;&lt;em&gt;UPDATE SEPTEMBER 2014: I receive a lot of requests to update this with current numbers. Especially after Dropbox&amp;rsquo;s change in late 2014 to 1 TB of storage, this would be a useful comparison to run again. Hopefully I&amp;rsquo;ll get around to it soon.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;Part of my quest to &lt;a href=&#34;/2012/08/31/owning-my-data/&#34;&gt;own my data&lt;/a&gt; involves looking at alternatives to Dropbox. This sentence from their &lt;a href=&#34;https://www.dropbox.com/terms&#34;&gt;terms of service&lt;/a&gt; is disconcerting:&lt;/p&gt;
@@ -343,10 +343,10 @@ In short, if you&amp;rsquo;re going to use the full 100 GB, it will save you ton
     
     <item>
       <title>Veriphonification</title>
-      <link>http://blog.scnay.com/2012/09/10/veriphonification</link>
+      <link>http://snay2.github.io/2012/09/10/veriphonification</link>
       <pubDate>Mon, 10 Sep 2012 08:14:04 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2012/09/10/veriphonification</guid>
+      <guid>http://snay2.github.io/2012/09/10/veriphonification</guid>
       <description>&lt;p&gt;Perhaps I shouldn&amp;rsquo;t admit this publicly, but I like One Direction&amp;rsquo;s hit, &amp;ldquo;What Makes You Beautiful&amp;rdquo;. It&amp;rsquo;s catchy and has a positive lay. It also has a niggling logical fallacy:&lt;/p&gt;
 
 &lt;blockquote&gt;So c-come on,
@@ -370,10 +370,10 @@ I put it in a song.&lt;/strong&gt;&lt;/blockquote&gt;
     
     <item>
       <title>Owning my data</title>
-      <link>http://blog.scnay.com/2012/08/31/owning-my-data</link>
+      <link>http://snay2.github.io/2012/08/31/owning-my-data</link>
       <pubDate>Fri, 31 Aug 2012 13:49:32 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2012/08/31/owning-my-data</guid>
+      <guid>http://snay2.github.io/2012/08/31/owning-my-data</guid>
       <description>&lt;p&gt;Two months ago I decided to switch to Octopress. The idea of writing posts in Markdown and compiling them into a static site was appealing. The problem was that I had to be on my laptop at home to write a post, and I hadn&amp;rsquo;t quite mastered the quirks of the system. As a result, I haven&amp;rsquo;t written a blog post in two months, so I decided to switch back to WordPress.&lt;/p&gt;
 
 &lt;p&gt;One of the main arguments in favor of a system like Octopress is &amp;ldquo;owning your data&amp;rdquo;. Rather than use a &amp;ldquo;free&amp;rdquo; hosted service that mines your writing to produce useful data for advertisers, it&amp;rsquo;s better to pay a little more (in time or money) and host your writing yourself. I moved this blog to my own server a few years ago, and it has been worth it.&lt;/p&gt;
@@ -401,10 +401,10 @@ As I mentioned, I&amp;rsquo;m moving over to &lt;strong&gt;OpenPhoto&lt;/strong&
     
     <item>
       <title>Stories from the gay Mormon community</title>
-      <link>http://blog.scnay.com/2012/06/18/stories-from-the-gay-mormon-community</link>
+      <link>http://snay2.github.io/2012/06/18/stories-from-the-gay-mormon-community</link>
       <pubDate>Mon, 18 Jun 2012 12:15:18 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2012/06/18/stories-from-the-gay-mormon-community</guid>
+      <guid>http://snay2.github.io/2012/06/18/stories-from-the-gay-mormon-community</guid>
       <description>&lt;p&gt;Recently, I&amp;rsquo;ve come across several stories from the historically reticent minority of homosexuals in the LDS community. Their writing deserves to be read; it has increased my compassion and respect for this misunderstood group.&lt;/p&gt;
 
 &lt;p&gt;Here are the stories I&amp;rsquo;ve found most inspiring:&lt;/p&gt;
@@ -427,10 +427,10 @@ As I mentioned, I&amp;rsquo;m moving over to &lt;strong&gt;OpenPhoto&lt;/strong&
     
     <item>
       <title>Credit card numbers as channels</title>
-      <link>http://blog.scnay.com/2012/05/23/credit-card-numbers-as-channels</link>
+      <link>http://snay2.github.io/2012/05/23/credit-card-numbers-as-channels</link>
       <pubDate>Wed, 23 May 2012 20:51:27 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2012/05/23/credit-card-numbers-as-channels</guid>
+      <guid>http://snay2.github.io/2012/05/23/credit-card-numbers-as-channels</guid>
       <description>&lt;p&gt;Spotify and LinkedIn are hounding me to try their premium versions free for a month. I&amp;rsquo;d gladly oblige if I didn&amp;rsquo;t have to give them a credit card number. They&amp;rsquo;re secretly hoping I&amp;rsquo;ll forget to cancel my account before the month is up so they can charge me.&lt;/p&gt;
 
 &lt;p&gt;I want a way to give Spotify a unique financial &lt;a href=&#34;http://www.windley.com/archives/2012/02/event_channels.shtml&#34;&gt;channel&lt;/a&gt; that points back to a &lt;a href=&#34;http://en.wikipedia.org/wiki/Vendor_relationship_management&#34;&gt;VRM&lt;/a&gt; system operating on my behalf. In that system, I specify that the Spotify channel is good for 29 days; after that, it expires. Anytime before that, Spotify can negotiate a financial transaction through the channel, but once it has expired, the channel denies any transactions. I get to use Spotify Unlimited for a month and when they try to charge my credit card for the second month it fails. The trial ends and I&amp;rsquo;m satisfied.&lt;/p&gt;
@@ -443,10 +443,10 @@ As I mentioned, I&amp;rsquo;m moving over to &lt;strong&gt;OpenPhoto&lt;/strong&
     
     <item>
       <title>Using Magic Mouse on Windows 7 with Boot Camp</title>
-      <link>http://blog.scnay.com/2012/05/01/using-magic-mouse-on-windows-7-with-boot-camp</link>
+      <link>http://snay2.github.io/2012/05/01/using-magic-mouse-on-windows-7-with-boot-camp</link>
       <pubDate>Tue, 01 May 2012 10:27:39 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2012/05/01/using-magic-mouse-on-windows-7-with-boot-camp</guid>
+      <guid>http://snay2.github.io/2012/05/01/using-magic-mouse-on-windows-7-with-boot-camp</guid>
       <description>&lt;p&gt;I&amp;rsquo;m running Windows 7 on some Mac hardware with Boot Camp. The Magic Mouse didn&amp;rsquo;t work right out of the box, even though Windows seems to understand the Bluetooth device just fine. I used the following combination of processes to get the Magic Mouse to work:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -461,10 +461,10 @@ As I mentioned, I&amp;rsquo;m moving over to &lt;strong&gt;OpenPhoto&lt;/strong&
     
     <item>
       <title>Car health records in a personal event network</title>
-      <link>http://blog.scnay.com/2012/03/28/car-health-records-in-a-personal-event-network</link>
+      <link>http://snay2.github.io/2012/03/28/car-health-records-in-a-personal-event-network</link>
       <pubDate>Wed, 28 Mar 2012 09:50:17 UTC</pubDate>
       
-      <guid>http://blog.scnay.com/2012/03/28/car-health-records-in-a-personal-event-network</guid>
+      <guid>http://snay2.github.io/2012/03/28/car-health-records-in-a-personal-event-network</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.carvoyant.com/&#34;&gt;Carvoyant&lt;/a&gt; is launching a car health record service: They send you an OBD-II device, which you pair via Bluetooth with your Android phone. The app periodically polls the device for diagnostics from your car and uploads them to Carvoyant&amp;rsquo;s servers. Their website tracks your maintenance history and other statistics, ostensibly so you can take better care of your car and save money.&lt;/p&gt;
 
 &lt;p&gt;They take it one step further by sharing your data with service providers. When your car is in need of a repair, Carvoyant automatically sends the data it collected (anonymized) to service providers in your area, who have half an hour to provide a bid for the repairs. You can evaluate those bids and choose where to go for service. (This is not unlike Facebook&amp;rsquo;s model of collecting your personal information free of charge and then selling it to advertisers.)&lt;/p&gt;
