@@ -1,1 +1,0 @@
-Blog on scnay.com
