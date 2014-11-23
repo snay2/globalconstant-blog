@@ -27,6 +27,7 @@
                 <div class="li-menu li-right">
                     <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
                     <ul id="menu2" class="li-menu-items">
+                        <li><a href="http://eclectichuman.scnay.com/">Newsletter</a></li>
                         <li><a href="/archive">Archives</a></li>
                     </ul>
                 </div>
@@ -35,6 +36,7 @@
         <div class="row">
             <div class="sixteen columns">
                 <ul id="menu" class="li-menu-items li-menu-mobile">
+                        <li><a href="http://eclectichuman.scnay.com/">Newsletter</a></li>
                     <li><a href="/archive">Archives</a></li>
                 </ul>
             </div>
@@ -46,6 +48,45 @@
     <div class="container">
         <div class="row">
             <div class="sixteen columns">
+                
+                    <article class="li-article">
+                        <header class="li-article-header">
+                            <a href="http://blog.scnay.com/2014/11/22/eclectic-human"><h1 class="li-article-title">An Eclectic Human</h1></a>
+                            <time class="li-article-date">22 November 2014</time>
+                        </header>
+                        <section>
+                            <p>Last month I started writing a newsletter called <a href="http://eclectichuman.scnay.com/">An Eclectic
+Human</a>.</p>
+
+<p>It&rsquo;s a place to talk about community, philosophy, and being a better human. But
+I&rsquo;m not what makes it interesting. I share something each week that I&rsquo;ve been
+thinking about or trying in my life, and my lovely readers (including, perhaps,
+you) write back and discuss the topic. Then the following week everyone gets to
+read the thoughts of the other community members.</p>
+
+<p>So far, we&rsquo;ve talked about
+<a href="http://eclectichuman.scnay.com/letters/2014/11/06/danny-and-reuven/">books</a> and
+<a href="http://eclectichuman.scnay.com/letters/2014/11/13/what-type-of-human-wed-like-to-be/">music</a>
+we love, how to <a href="http://eclectichuman.scnay.com/letters/2014/10/23/the-steel-man/">communicate with compassion</a>,
+what it means to remember the past and why it&rsquo;s sometimes
+<a href="http://eclectichuman.scnay.com/letters/2014/11/20/the-high-school-boy-who-bore-my-name/">better to forget</a>,
+and much more. I&rsquo;ve learned a lot so far, and I think you might enjoy it too.</p>
+
+<p>Would you like to join us on this journey? Just subscribe below.
+Newsletters go out on Thursdays.</p>
+
+<form style="text-align: center; border: 1px solid #ccc; padding: 3px; margin: 3px 3%; background-color: #4882A3; color: #ccc" action="https://tinyletter.com/snay2" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/snay2', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+<p><a href="http://tinyletter.com/snay2" target="_blank" style="color: #fff; font-weight: bold;">An Eclectic Human</a></p>
+<p><label for="tlemail">Enter your email address to subscribe to the newsletter:</label></p>
+<p><input type="text" name="email" id="tlemail" />
+<input type="hidden" value="1" name="embed"/>
+<button type="submit" value="Subscribe">Subscribe</button></p>
+<p style="font-size: smaller;">powered by <a href="https://tinyletter.com" target="_blank">TinyLetter</a></p>
+</form>
+
+                        </section>
+                    </article>
+                    <hr />
                 
                     <article class="li-article">
                         <header class="li-article-header">
@@ -228,22 +269,6 @@ sudo apache2ctl restart
 <p>Permissions are set on the <code>/home/ubuntu/stage/web</code> folder and the <code>/etc/apache2/sites-enabled/</code> file points to that folder as the DocumentRoot.</p>
 
 <p>That&rsquo;s all it takes. Now every time I do a <code>git push prod master</code> on my dev machine, the code is uploaded to the server, properly configured for a production environment, and fed to Apache.</p>
-
-                        </section>
-                    </article>
-                    <hr />
-                
-                    <article class="li-article">
-                        <header class="li-article-header">
-                            <a href="http://blog.scnay.com/2013/02/08/coldfusion-9-and-iis-7"><h1 class="li-article-title">ColdFusion 9 and IIS 7</h1></a>
-                            <time class="li-article-date">08 February 2013</time>
-                        </header>
-                        <section>
-                            <p><em>I&rsquo;m installing a ColdFusion application and ran into a few issues. Here, mostly for my future reference, is the process of solving those problems.</em></p>
-
-<p>ColdFusion was installed before IIS 7. As such, IIS didn&rsquo;t have the correct handlers for ColdFusion files. Follow the <a href="http://www.codecurry.com/2009/09/installing-coldfusion-on-iis-7.html">instructions on Codecurry</a> to get that resolved. The post is dated (the screenshots are on Vista), but the general process is still correct. Make sure these IIS features get installed: ASP.NET, .NET Extensibility, CGI, ISAPI Filters, and ISAPI Extensions. Then run the ColdFusion Web Server Configuration Tool to perform the necessary IIS configuration.</p>
-
-<p>Once that was working, I started getting HTTP 500 errors. In my case, ColdFusion was only set up to run in 32-bit mode, even though IIS and Windows Server 2008 R2 is 64-bit. To fix this, go into IIS Manager and select the Application Pool your website is using. Choose Advanced Settings and change Enable 32-Bit Applications to True. (If you prefer the command line, see <a href="http://forums.iis.net/post/1912776.aspx">these instructions</a> for this change.)</p>
 
                         </section>
                     </article>

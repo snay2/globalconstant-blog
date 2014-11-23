@@ -29,6 +29,7 @@
 body {
     font-family: "Open Sans", "Helvetica Neue", "Helvetica", sans-serif;
     color: #484644;
+    margin: 0;
 }
 
 a,
@@ -42,13 +43,13 @@ a:visited {
 
 h1,h2,h3,h4,h5,h6 {
     color: #202020;
-    font-weight: lighter;
+    font-weight: 700;
 }
 
 /** Screen furniture ********************************************************/
 .li-page-header {
     background-color: #202020;
-    color: #fff;
+    color: #ccc;
     padding: 32px 0px;
 }
 
