@@ -36,21 +36,21 @@ a,
 a:active,
 a:hover,
 a:visited {
-    color: #202020;
+    color: #292929;
     text-decoration: none;
     font-weight: bold;
 }
 
 h1,h2,h3,h4,h5,h6 {
-    color: #202020;
+    color: #292929;
     font-weight: 700;
 }
 
 /** Screen furniture ********************************************************/
 .li-page-header {
-    background-color: #202020;
+    background-color: #292929;
     color: #ccc;
-    padding: 32px 0px;
+    padding: 20px 0px;
 }
 
 .li-page-header ul {
